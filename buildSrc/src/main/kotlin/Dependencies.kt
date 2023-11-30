@@ -39,4 +39,18 @@ object Deps {
             }
         }
     }
+
+    object Network {
+        private const val version = "2.3.2"
+
+        const val core = "io.ktor:ktor-client-core:$version"
+        const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
+        const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$version"
+        const val logger = "io.ktor:ktor-client-logging:$version"
+
+        object Client {
+            const val android = "io.ktor:ktor-client-android:$version"
+            const val ios = "io.ktor:ktor-client-darwin:$version"
+        }
+    }
 }

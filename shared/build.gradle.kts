@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization") version Versions.kotlinVersion
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -33,7 +34,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+
+                //network
+                with(Deps.Network) {
+                    implementation(core)
+                    implementation(contentNegotiation)
+                    implementation(serialization)
+                    implementation(logger)
+                }
             }
         }
         val commonTest by getting {
@@ -41,13 +49,27 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                //network
+                implementation(Deps.Network.Client.android)
+            }
+        }
+
+        val iosMain by getting {
+            dependencies {
+                //network
+                implementation(Deps.Network.Client.ios)
+            }
+        }
     }
 }
 
 android {
     namespace = "ru.kode.tools.opengate"
-    compileSdk = 33
+    compileSdk = Versions.Android.compileSdk
     defaultConfig {
-        minSdk = 24
+        minSdk = Versions.Android.minSdk
     }
 }
