@@ -45,6 +45,14 @@ kotlin {
 
                 //coroutines
                 implementation(Deps.Coroutines.core)
+
+                //mvi
+                with(Deps.MVI) {
+                    implementation(core)
+                    implementation(main)
+                    implementation(coroutines)
+                    implementation(logger)
+                }
             }
         }
         val commonTest by getting {

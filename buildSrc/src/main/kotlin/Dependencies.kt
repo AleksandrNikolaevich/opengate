@@ -59,4 +59,13 @@ object Deps {
 
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
     }
+    
+    object MVI {
+        private const val version = "3.2.1"
+
+        const val core = "com.arkivanov.mvikotlin:mvikotlin:$version"
+        const val main = "com.arkivanov.mvikotlin:mvikotlin-main:$version"
+        const val coroutines = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:$version"
+        const val logger = "com.arkivanov.mvikotlin:mvikotlin-logging:$version"
+    }
 }
