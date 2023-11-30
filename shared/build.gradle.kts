@@ -27,7 +27,14 @@ kotlin {
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "MultiPlatformLibrary"
+
+            //ViewModel (ios extra)
+            with(Deps.ViewModel) {
+                export(core)
+                export(flow)
+            }
+
         }
     }
     
@@ -52,6 +59,12 @@ kotlin {
                     implementation(main)
                     implementation(coroutines)
                     implementation(logger)
+                }
+
+                //ViewModel
+                with(Deps.ViewModel) {
+                    api(core)
+                    api(flow)
                 }
             }
         }

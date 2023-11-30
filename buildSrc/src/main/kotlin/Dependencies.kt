@@ -68,4 +68,11 @@ object Deps {
         const val coroutines = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:$version"
         const val logger = "com.arkivanov.mvikotlin:mvikotlin-logging:$version"
     }
+    
+    object ViewModel {
+        private const val version = "0.16.1"
+
+        const val core = "dev.icerock.moko:mvvm-core:$version"
+        const val flow = "dev.icerock.moko:mvvm-flow:$version"
+    }
 }
