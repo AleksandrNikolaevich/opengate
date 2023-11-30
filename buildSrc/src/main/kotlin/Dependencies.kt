@@ -93,4 +93,10 @@ object Deps {
         const val compose = "io.insert-koin:koin-androidx-compose:$version"
         const val core = "io.insert-koin:koin-core:$version"
     }
+
+    object Logger {
+        private const val version = "2.6.1"
+
+        const val core = "io.github.aakira:napier:$version"
+    }
 }

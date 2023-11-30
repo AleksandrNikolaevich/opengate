@@ -70,6 +70,9 @@ kotlin {
 
                 //DI
                 implementation(Deps.DI.core)
+
+                //Logger
+                implementation(Deps.Logger.core)
             }
         }
         val commonTest by getting {
