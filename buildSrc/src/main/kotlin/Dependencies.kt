@@ -53,4 +53,10 @@ object Deps {
             const val ios = "io.ktor:ktor-client-darwin:$version"
         }
     }
+
+    object Coroutines {
+        private const val version = "1.7.3"
+
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+    }
 }

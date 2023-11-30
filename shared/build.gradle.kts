@@ -42,6 +42,9 @@ kotlin {
                     implementation(serialization)
                     implementation(logger)
                 }
+
+                //coroutines
+                implementation(Deps.Coroutines.core)
             }
         }
         val commonTest by getting {
