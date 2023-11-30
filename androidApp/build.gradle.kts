@@ -59,4 +59,6 @@ dependencies {
         implementation(icons)
     }
 
+    //DI
+    implementation(Deps.DI.compose)
 }

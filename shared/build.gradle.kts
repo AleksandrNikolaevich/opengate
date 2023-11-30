@@ -67,6 +67,9 @@ kotlin {
                     api(core)
                     api(flow)
                 }
+
+                //DI
+                implementation(Deps.DI.core)
             }
         }
         val commonTest by getting {

@@ -86,4 +86,11 @@ object Deps {
         const val android = "app.cash.sqldelight:android-driver:$version"
         const val ios = "app.cash.sqldelight:native-driver:$version"
     }
+
+    object DI {
+        private const val version = "3.1.5"
+
+        const val compose = "io.insert-koin:koin-androidx-compose:$version"
+        const val core = "io.insert-koin:koin-core:$version"
+    }
 }
