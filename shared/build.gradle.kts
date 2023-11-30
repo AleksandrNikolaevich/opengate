@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Versions.kotlinVersion
+    id("app.cash.sqldelight") version Deps.DB.version
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -78,6 +79,9 @@ kotlin {
             dependencies {
                 //network
                 implementation(Deps.Network.Client.android)
+
+                //DB
+                implementation(Deps.DB.android)
             }
         }
 
@@ -85,15 +89,26 @@ kotlin {
             dependencies {
                 //network
                 implementation(Deps.Network.Client.ios)
+
+                //DB
+                implementation(Deps.DB.ios)
             }
         }
     }
 }
 
 android {
-    namespace = "ru.kode.tools.opengate"
+    namespace = App.bundleId
     compileSdk = Versions.Android.compileSdk
     defaultConfig {
         minSdk = Versions.Android.minSdk
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set(App.bundleId)
+        }
     }
 }

@@ -1,3 +1,7 @@
+object App {
+    const val bundleId = "ru.kode.tools.opengate"
+}
+
 object Versions {
     object Android {
         const val compileSdk = 34
@@ -74,5 +78,12 @@ object Deps {
 
         const val core = "dev.icerock.moko:mvvm-core:$version"
         const val flow = "dev.icerock.moko:mvvm-flow:$version"
+    }
+
+    object DB {
+        const val version = "2.0.0"
+
+        const val android = "app.cash.sqldelight:android-driver:$version"
+        const val ios = "app.cash.sqldelight:native-driver:$version"
     }
 }
