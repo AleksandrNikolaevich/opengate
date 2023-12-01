@@ -2,6 +2,8 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization") version Versions.kotlinVersion
+    id("app.cash.sqldelight") version Deps.DB.version
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -26,14 +28,51 @@ kotlin {
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "MultiPlatformLibrary"
+
+            //ViewModel (ios extra)
+            with(Deps.ViewModel) {
+                export(core)
+                export(flow)
+            }
+
         }
     }
     
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+
+                //network
+                with(Deps.Network) {
+                    implementation(core)
+                    implementation(contentNegotiation)
+                    implementation(serialization)
+                    implementation(logger)
+                }
+
+                //coroutines
+                implementation(Deps.Coroutines.core)
+
+                //mvi
+                with(Deps.MVI) {
+                    implementation(core)
+                    implementation(main)
+                    implementation(coroutines)
+                    implementation(logger)
+                }
+
+                //ViewModel
+                with(Deps.ViewModel) {
+                    api(core)
+                    api(flow)
+                }
+
+                //DI
+                implementation(Deps.DI.core)
+
+                //Logger
+                implementation(Deps.Logger.core)
             }
         }
         val commonTest by getting {
@@ -41,13 +80,41 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                //network
+                implementation(Deps.Network.Client.android)
+
+                //DB
+                implementation(Deps.DB.android)
+            }
+        }
+
+        val iosMain by getting {
+            dependencies {
+                //network
+                implementation(Deps.Network.Client.ios)
+
+                //DB
+                implementation(Deps.DB.ios)
+            }
+        }
     }
 }
 
 android {
-    namespace = "ru.kode.tools.opengate"
-    compileSdk = 33
+    namespace = App.bundleId
+    compileSdk = Versions.Android.compileSdk
     defaultConfig {
-        minSdk = 24
+        minSdk = Versions.Android.minSdk
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set(App.bundleId)
+        }
     }
 }

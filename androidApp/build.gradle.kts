@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
 }
 
-val appId = "ru.kode.tools.opengate.android"
+val appId = "${App.bundleId}.android"
 
 android {
     namespace = appId
@@ -59,4 +59,6 @@ dependencies {
         implementation(icons)
     }
 
+    //DI
+    implementation(Deps.DI.compose)
 }
