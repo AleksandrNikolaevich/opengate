@@ -1,0 +1,6 @@
+CREATE TABLE Barriers (
+    id TEXT NOT NULL,
+    key Text NOT NULL,
+    name Text NOT NULL,
+    state Integer NOT NULL
+);
