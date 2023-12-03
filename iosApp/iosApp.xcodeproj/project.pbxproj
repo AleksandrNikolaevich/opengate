@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1F535B222B1A583F0026A568 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F535B212B1A583F0026A568 /* SignInScreen.swift */; };
+		1F8B170A2B1C850F00D8D4A0 /* View+addBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8B17092B1C850F00D8D4A0 /* View+addBorder.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		D1FE99E71EB448D15770CF04 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0573F8473B6F46CDBB82E2C5 /* Pods_iosApp.framework */; };
@@ -19,6 +21,8 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		08A55E39F8E3822429A9ABCD /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		1F535B212B1A583F0026A568 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
+		1F8B17092B1C850F00D8D4A0 /* View+addBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+addBorder.swift"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +50,38 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1F535B1F2B1A58110026A568 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				1F535B202B1A582C0026A568 /* SignIn */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		1F535B202B1A582C0026A568 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				1F535B212B1A583F0026A568 /* SignInScreen.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		1F8B17072B1C84F000D8D4A0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1F8B17082B1C84F800D8D4A0 /* Extensions */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		1F8B17082B1C84F800D8D4A0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F8B17092B1C850F00D8D4A0 /* View+addBorder.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +103,8 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				1F8B17072B1C84F000D8D4A0 /* Shared */,
+				1F535B1F2B1A58110026A568 /* Screens */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -207,8 +245,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8B170A2B1C850F00D8D4A0 /* View+addBorder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				1F535B222B1A583F0026A568 /* SignInScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
