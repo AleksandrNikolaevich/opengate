@@ -35,9 +35,9 @@ fun PasswordField(
         singleLine = true,
         visualTransformation = if (passwordHidden.value) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        isError = error?.isNotBlank() ?: false,
+        isError = error != null,
         supportingText = {
-            if (error?.isNotBlank() == true) Text(text = error)
+            if (error != null) Text(text = error)
             else null
         },
         trailingIcon = {
