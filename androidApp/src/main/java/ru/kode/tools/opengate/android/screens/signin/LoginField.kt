@@ -21,9 +21,9 @@ fun LoginField(
         placeholder = { Text(text = stringResource(id = R.string.phone)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         singleLine = true,
-        isError = error?.isNotBlank() ?: false,
+        isError = error != null,
         supportingText = {
-            if (error?.isNotBlank() == true) Text(text = error)
+            if (error != null) Text(text = error)
             else null
         },
     )

@@ -1,6 +1,13 @@
-CREATE TABLE Barriers (
-    id TEXT NOT NULL,
+CREATE TABLE barrier (
+    id TEXT NOT NULL PRIMARY KEY,
     key Text NOT NULL,
     name Text NOT NULL,
     state Integer NOT NULL
 );
+
+updateBarrierWithId:
+INSERT OR REPLACE INTO barrier(id, key, name, state)
+VALUES(?, ?, ?, ?);
+
+removeBarriers:
+DELETE FROM barrier;

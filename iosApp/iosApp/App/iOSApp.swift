@@ -4,7 +4,7 @@ import MultiPlatformLibrary
 @main
 struct iOSApp: App {
   init() {
-    KoinHelper().doInit()
+    KoinHelper().doInit { _ in }
   }
   
 	var body: some Scene {
