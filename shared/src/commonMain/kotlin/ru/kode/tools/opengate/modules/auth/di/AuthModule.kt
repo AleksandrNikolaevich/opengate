@@ -12,15 +12,9 @@ import ru.kode.tools.opengate.modules.auth.data.SecurityStorageSource
 import ru.kode.tools.opengate.modules.auth.data.mappers.SignInResponseMapper
 import ru.kode.tools.opengate.modules.auth.domain.AuthStore
 import ru.kode.tools.opengate.modules.auth.domain.Repository
-import ru.kode.tools.opengate.modules.auth.presentation.SignInViewModel
+import ru.kode.tools.opengate.presentation.presentation.SignInViewModel
 
 internal val authModule = module {
-    single<SignInViewModel> {
-        SignInViewModel(
-            store = get(),
-        )
-    }
-
     single<AuthStore>() {
         ru.kode.tools.opengate.modules.auth.domain.StoreFactory(
             storeFactory = get(),

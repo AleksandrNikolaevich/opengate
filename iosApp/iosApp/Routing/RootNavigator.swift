@@ -14,7 +14,7 @@ struct RootNavigator: View {
       }
       
       Transition(showing: appState == .authenticated, direction: .left) {
-        HomeScreen(logout: viewModel.logout)
+        ProtectedNavigator()
       }
       
       Transition(showing: appState == .needAuth, direction: .right) {

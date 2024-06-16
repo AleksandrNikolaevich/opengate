@@ -7,4 +7,11 @@
     <string name="show_password">Show password</string>
     <string name="hide_password">Hide password</string>
     <string name="sign_in">Sign In</string>
+
+    <string name="profile">Profile</string>
+    <string name="go_back">Go back</string>
+    <string name="logout">Logout</string>
+    <string name="logout_description">You will need to login again</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="cancel">Cancel</string>
 </resources>

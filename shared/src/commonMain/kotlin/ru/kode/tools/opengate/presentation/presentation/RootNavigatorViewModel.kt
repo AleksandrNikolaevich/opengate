@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.routing.presentation
+package ru.kode.tools.opengate.presentation.presentation
 
 import com.arkivanov.mvikotlin.core.binder.Binder
 import com.arkivanov.mvikotlin.extensions.coroutines.bind
@@ -7,10 +7,8 @@ import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
 import ru.kode.tools.opengate.modules.auth.domain.AuthStore
 
 class RootNavigatorViewModel(
@@ -30,8 +28,6 @@ class RootNavigatorViewModel(
 
         authStore.accept(AuthStore.Intent.CheckLogin)
     }
-
-    fun logout() = authStore.accept(AuthStore.Intent.Logout)
 
     private fun acceptAuthState(state: AuthStore.State) {
         val isLoggedIn = state.isLoggedIn

@@ -1,6 +1,5 @@
 package ru.kode.tools.opengate.android.routing
 
-import android.util.Log
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
@@ -11,9 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.get
 import ru.kode.tools.opengate.android.screens.SplashScreen
-import ru.kode.tools.opengate.android.screens.home.HomeScreen
 import ru.kode.tools.opengate.android.screens.signin.SignInScreen
-import ru.kode.tools.opengate.routing.presentation.RootNavigatorViewModel
+import ru.kode.tools.opengate.presentation.presentation.RootNavigatorViewModel
 
 sealed class Screen(val route: String) {
     data object SignIn : Screen("sign-in")
@@ -126,11 +124,7 @@ fun RootNavigator(viewModel: RootNavigatorViewModel = get()) {
                         )
                     }
                 ) {
-                    HomeScreen(
-                        onLogout = {
-                            viewModel.logout()
-                        }
-                    )
+                    ProtectedNavigator()
                 }
 
         }

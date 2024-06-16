@@ -33,8 +33,9 @@ internal class CloudDataSource(
                     val data = response.body<SignInResponse.Error>()
 
                     Response.Failed(Error(data.error.msg))
+                } catch (e: RuntimeException) {
+                    Response.Failed(Error("Some problem. Try later..."))
                 }
-
             }
         }
 

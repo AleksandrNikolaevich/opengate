@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import ru.kode.tools.opengate.android.R
-import ru.kode.tools.opengate.modules.auth.presentation.SignInViewModel
+import ru.kode.tools.opengate.presentation.presentation.SignInViewModel
 import org.koin.androidx.compose.get
 
 @Composable
