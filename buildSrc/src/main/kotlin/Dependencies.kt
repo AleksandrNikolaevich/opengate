@@ -41,6 +41,10 @@ object Deps {
                 const val core = "androidx.compose.material3:material3:1.2.0-alpha11"
                 const val icons = "androidx.compose.material:material-icons-extended:1.5.2"
             }
+
+            object Navigation {
+                const val core = "androidx.navigation:navigation-compose:2.7.3"
+            }
         }
     }
 
@@ -98,5 +102,11 @@ object Deps {
         private const val version = "2.6.1"
 
         const val core = "io.github.aakira:napier:$version"
+    }
+
+    object SecurityStorage {
+        private const val version = "1.12.0"
+
+        const val common = "com.liftric:kvault:$version"
     }
 }

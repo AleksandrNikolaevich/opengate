@@ -14,6 +14,8 @@ internal class Executor(
         getState: () -> AuthStore.State,
     ) = when (intent) {
         is AuthStore.Intent.SignIn -> signIn(intent.login, intent.password)
+        is AuthStore.Intent.Logout -> logout()
+        is AuthStore.Intent.CheckLogin -> checkLogin()
     }
 
     private suspend fun signIn(login: String, password: String) {
@@ -21,9 +23,21 @@ internal class Executor(
 
         when (val response = repository.signIn(login, password)) {
 //            is Response.Cached -> dispatch(StoreFactory.Message.SetData(response.data, true))
-            is Response.Success -> dispatch(StoreFactory.Message.SetLoggedIn)
+            is Response.Success -> dispatch(StoreFactory.Message.SetLoggedIn(true))
             is Response.Failed -> dispatch(StoreFactory.Message.SetError(response.throwable.message ?: "Error"))
             else -> dispatch(StoreFactory.Message.SetError("Unknown error"))
         }
+    }
+
+    private suspend fun checkLogin() {
+        repository.getCredentials()?.let {
+            dispatch(StoreFactory.Message.SetLoggedIn(true))
+            signIn(it.login, it.password)
+        }
+    }
+
+    private fun logout() {
+        repository.clearCredentials()
+        dispatch(StoreFactory.Message.SetLoggedIn(false))
     }
 }

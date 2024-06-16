@@ -23,7 +23,7 @@ internal class StoreFactory(
 
     sealed interface Message {
         object SetLoading : Message
-        object SetLoggedIn : Message
+        class SetLoggedIn(val state: Boolean) : Message
         class SetError(val message: String) : Message
     }
 }

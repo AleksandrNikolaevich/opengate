@@ -7,6 +7,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import ru.kode.tools.opengate.core.DBDriverFactory
+import ru.kode.tools.opengate.core.SecurityStorageFactory
 import ru.kode.tools.opengate.modules.auth.di.authModule
 
 actual fun initKoin(appDeclaration: KoinAppDeclaration, vararg modules: Module) {
@@ -17,9 +18,16 @@ actual fun initKoin(appDeclaration: KoinAppDeclaration, vararg modules: Module) 
     listOfModules.add(
         module {
             // Android specific dependencies
-            single {
+            single<DBDriverFactory> {
                 DBDriverFactory(
                     context = get()
+                )
+            }
+
+            single<SecurityStorageFactory> {
+                SecurityStorageFactory(
+                    context = get(),
+                    fileName = "security_store"
                 )
             }
         }

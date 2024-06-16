@@ -1,35 +1,44 @@
 import SwiftUI
+import MultiPlatformLibrary
+import mokoMvvmFlowSwiftUI
 
 struct SignInScreen: View {
-  @State private var login: String = ""
-  @State private var password: String = ""
+  @ObservedObject private var viewModel = DI().signInViewModel()
   
-  private var isSubmitting = false
-  private var isSubmitAvailable = false
+  private var state: AuthStoreState { viewModel.state(\.state) }
   
   var body: some View {
+    let hasError = !(state.error ?? "").isEmpty
+    let borderColor: Color = hasError ? .red : .secondary
+    
     VStack {
       Text("OpenGate").font(.largeTitle)
       
       VStack(spacing: 0) {
-        TextField("Phone", text: $login)
+        TextField("Phone", text: viewModel.binding(\.login))
           .keyboardType(.phonePad)
           .padding(.vertical, 8)
           .padding(.horizontal, 16)
         
         Divider()
           .frame(height: 1)
-          .overlay(Color.secondary)
+          .overlay(borderColor)
         
-        SecureField("Password", text: $password)
+        SecureField("Password", text: viewModel.binding(\.password))
           .padding(.vertical, 8)
           .padding(.horizontal, 16)
       }
-      .addBorder(Color.secondary, width: 1, cornerRadius: 12)
+      .addBorder(borderColor, width: 1, cornerRadius: 12)
+      
+      if (hasError) {
+        Text(state.error ?? "")
+          .foregroundColor(.red)
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
       
       submitButton
         .frame(height: 60)
-        .disabled(!isSubmitAvailable)
+        .disabled(false)
       
     }
       .padding(48)
@@ -37,10 +46,10 @@ struct SignInScreen: View {
   
   @ViewBuilder
   private var submitButton: some View {
-    if (isSubmitting) {
+    if (state.isLoading) {
       ProgressView()
     } else {
-      Button("Sign In", action: {})
+      Button("Sign In", action: viewModel.signIn)
     }
   }
 }

@@ -59,6 +59,10 @@ dependencies {
         implementation(icons)
     }
 
+    with(Deps.AndroidX.Compose.Navigation) {
+        implementation(core)
+    }
+
     //DI
     implementation(Deps.DI.compose)
 }

@@ -9,7 +9,7 @@ internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<AuthStore.St
             )
 
             is StoreFactory.Message.SetLoggedIn -> copy(
-                isLoggedIn = true,
+                isLoggedIn = msg.state,
                 isLoading = false,
             )
 

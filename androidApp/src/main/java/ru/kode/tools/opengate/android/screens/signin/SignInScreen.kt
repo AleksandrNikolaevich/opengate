@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,11 +22,14 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import ru.kode.tools.opengate.android.R
+import ru.kode.tools.opengate.modules.auth.presentation.SignInViewModel
+import org.koin.androidx.compose.get
 
 @Composable
-fun SignInScreen() {
-    val isSubmitting = false
-    val isSubmitEnabled = false
+fun SignInScreen(viewModel: SignInViewModel = get()) {
+    val state by viewModel.state.collectAsState()
+    val login: String by viewModel.login.collectAsState()
+    val password: String by viewModel.password.collectAsState()
 
     Scaffold { paddings ->
         Column(
@@ -42,14 +47,14 @@ fun SignInScreen() {
                 color = MaterialTheme.colorScheme.primary
             )
 
-            LoginField(value = "", onChange = {}, error = null)
+            LoginField(value = login, onChange = { viewModel.login.value = it }, error = if (state.error.isNullOrEmpty()) null else "")
 
-            PasswordField(value = "", onChange = {}, error = null)
+            PasswordField(value = password, onChange = { viewModel.password.value = it }, error = state.error)
 
             SubmitButton(
-                loading = isSubmitting,
-                enabled = isSubmitEnabled,
-                onClick = {}
+                loading = state.isLoading,
+                enabled = true,
+                onClick = { viewModel.signIn() }
             )
         }
     }

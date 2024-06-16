@@ -73,6 +73,9 @@ kotlin {
 
                 //Logger
                 implementation(Deps.Logger.core)
+
+                //SecurityStorage
+                implementation(Deps.SecurityStorage.common)
             }
         }
         val commonTest by getting {
