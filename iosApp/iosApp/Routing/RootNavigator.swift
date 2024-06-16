@@ -3,18 +3,21 @@ import MultiPlatformLibrary
 import mokoMvvmFlowSwiftUI
 
 struct RootNavigator: View {
-  
   @ObservedObject private var viewModel = DI().rootNavigatorViewModel()
   
-  private var state: AuthStoreState { viewModel.state(\.auth) }
-  
   var body: some View {
+    let appState = viewModel.state(\.appState)
+    
     ZStack {
-      Transition(showing: state.isLoggedIn, direction: .left) {
+      Transition(showing: appState == .pending, direction: .left) {
+        SplashScreen()
+      }
+      
+      Transition(showing: appState == .authenticated, direction: .left) {
         HomeScreen(logout: viewModel.logout)
       }
       
-      Transition(showing: !state.isLoggedIn, direction: .right) {
+      Transition(showing: appState == .needAuth, direction: .right) {
         SignInScreen()
       }
     }

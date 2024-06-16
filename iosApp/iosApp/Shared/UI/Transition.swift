@@ -3,7 +3,7 @@ import SwiftUI
 struct Transition<Content>: View where Content: View {
   enum Direction : CGFloat {
     case left = 1
-    case right = -1
+    case right = -1    
   }
   
   var showing: Bool

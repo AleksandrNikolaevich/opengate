@@ -1,5 +1,6 @@
 package ru.kode.tools.opengate.android.routing
 
+import android.util.Log
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
@@ -9,89 +10,129 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.get
+import ru.kode.tools.opengate.android.screens.SplashScreen
 import ru.kode.tools.opengate.android.screens.home.HomeScreen
 import ru.kode.tools.opengate.android.screens.signin.SignInScreen
 import ru.kode.tools.opengate.routing.presentation.RootNavigatorViewModel
 
 sealed class Screen(val route: String) {
-    object SignIn : Screen("sign-in")
-    object Home : Screen("home")
+    data object SignIn : Screen("sign-in")
+    data object Home : Screen("home")
+    data object SplashScreen : Screen("splash")
 }
 
 @Composable
 fun RootNavigator(viewModel: RootNavigatorViewModel = get()) {
     val navController = rememberNavController()
 
-    val state by viewModel.auth.collectAsState()
+    val appState by viewModel.appState.collectAsState()
 
     NavHost(
         navController = navController,
-        startDestination = if (state.isLoggedIn) Screen.Home.route else Screen.SignIn.route
+        startDestination = when (appState) {
+            RootNavigatorViewModel.AppState.PENDING -> Screen.SplashScreen.route
+            RootNavigatorViewModel.AppState.NEED_AUTH -> Screen.SignIn.route
+            RootNavigatorViewModel.AppState.AUTHENTICATED -> Screen.Home.route
+        }
     ) {
-        if (state.isLoggedIn) {
-            composable(
-                route = Screen.Home.route,
-                enterTransition = {
-                    slideIntoContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                        animationSpec = tween(300)
-                    )
-                },
-                exitTransition = {
-                    slideOutOfContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                        animationSpec = tween(300)
-                    )
-                },
-                popEnterTransition = {
-                    slideIntoContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                        animationSpec = tween(600)
-                    )
-                },
-                popExitTransition = {
-                    slideOutOfContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                        animationSpec = tween(600)
-                    )
-                }
-            ) {
-                HomeScreen(
-                    onLogout = {
-                        viewModel.logout()
+        when (appState) {
+            RootNavigatorViewModel.AppState.PENDING ->
+                composable(
+                    route = Screen.SplashScreen.route,
+                    enterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(600)
+                        )
+                    },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(600)
+                        )
+                    },
+                    popEnterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(300)
+                        )
+                    },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(300)
+                        )
                     }
-                )
-            }
-        } else {
-            composable(
-                route = Screen.SignIn.route,
-                enterTransition = {
-                    slideIntoContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                        animationSpec = tween(600)
-                    )
-                },
-                exitTransition = {
-                    slideOutOfContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                        animationSpec = tween(600)
-                    )
-                },
-                popEnterTransition = {
-                    slideIntoContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                        animationSpec = tween(300)
-                    )
-                },
-                popExitTransition = {
-                    slideOutOfContainer(
-                        towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                        animationSpec = tween(300)
+                ) {
+                    SplashScreen()
+                }
+
+            RootNavigatorViewModel.AppState.NEED_AUTH ->
+                composable(
+                    route = Screen.SignIn.route,
+                    enterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(600)
+                        )
+                    },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(600)
+                        )
+                    },
+                    popEnterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(300)
+                        )
+                    },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(300)
+                        )
+                    }
+                ) {
+                    SignInScreen()
+                }
+
+            RootNavigatorViewModel.AppState.AUTHENTICATED ->
+                composable(
+                    route = Screen.Home.route,
+                    enterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(300)
+                        )
+                    },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(300)
+                        )
+                    },
+                    popEnterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(600)
+                        )
+                    },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(600)
+                        )
+                    }
+                ) {
+                    HomeScreen(
+                        onLogout = {
+                            viewModel.logout()
+                        }
                     )
                 }
-            ) {
-                SignInScreen()
-            }
+
         }
     }
 }

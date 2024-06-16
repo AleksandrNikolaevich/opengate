@@ -9,6 +9,8 @@ struct HomeScreen: View {
       
       Button("Logout", action: logout)
     }
+    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+    .background(Color.white)
   }
 }
 

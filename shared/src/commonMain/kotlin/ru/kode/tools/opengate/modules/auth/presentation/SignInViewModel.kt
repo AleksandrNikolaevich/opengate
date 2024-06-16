@@ -29,8 +29,6 @@ class SignInViewModel(
             store.states bindTo (::acceptState)
         }
         binder.start()
-
-        store.accept(AuthStore.Intent.CheckLogin)
     }
 
     fun signIn() = store.accept(AuthStore.Intent.SignIn(login.value, password.value))

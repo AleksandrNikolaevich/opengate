@@ -30,9 +30,13 @@ internal class Executor(
     }
 
     private suspend fun checkLogin() {
-        repository.getCredentials()?.let {
+        val credentials = repository.getCredentials()
+
+        if (credentials != null) {
             dispatch(StoreFactory.Message.SetLoggedIn(true))
-            signIn(it.login, it.password)
+            signIn(credentials.login, credentials.password)
+        } else {
+            dispatch(StoreFactory.Message.SetLoggedIn(false))
         }
     }
 
