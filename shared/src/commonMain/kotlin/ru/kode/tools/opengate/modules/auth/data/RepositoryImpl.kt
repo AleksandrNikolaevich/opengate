@@ -25,7 +25,8 @@ internal class RepositoryImpl(
         return securityStorage.getCredentials()
     }
 
-    override fun clearCredentials() {
+    override fun clearLocalData() {
         securityStorage.clearCredentials()
+        dbDataSource.clearData()
     }
 }

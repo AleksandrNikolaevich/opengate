@@ -41,7 +41,7 @@ internal class Executor(
     }
 
     private fun logout() {
-        repository.clearCredentials()
+        repository.clearLocalData()
         dispatch(StoreFactory.Message.SetLoggedIn(false))
     }
 }

@@ -11,3 +11,6 @@ VALUES(?, ?, ?, ?);
 
 removeBarriers:
 DELETE FROM barrier;
+
+getBarriers:
+SELECT * FROM barrier;

@@ -8,5 +8,5 @@ internal interface Repository {
 
     fun getCredentials(): SecurityStorageSource.Credentials?
 
-    fun clearCredentials()
+    fun clearLocalData()
 }

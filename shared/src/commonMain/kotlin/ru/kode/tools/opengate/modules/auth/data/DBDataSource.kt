@@ -19,4 +19,8 @@ internal class DBDataSource(
     internal fun addBarrier(barrier: Barrier) {
         dbQuery.updateBarrierWithId(barrier.id, barrier.key, barrier.name, if (barrier.isAvailable) 1 else 0)
     }
+
+    internal fun clearData() {
+        dbQuery.removeBarriers()
+    }
 }
