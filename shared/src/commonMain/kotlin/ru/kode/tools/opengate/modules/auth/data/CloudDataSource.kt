@@ -1,36 +1,29 @@
 package ru.kode.tools.opengate.modules.auth.data
 
-import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.request.forms.FormDataContent
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.Parameters
 import io.ktor.serialization.JsonConvertException
-import ru.kode.tools.opengate.core.Mapper
 import ru.kode.tools.opengate.core.Response
 import ru.kode.tools.opengate.data.Api
-import ru.kode.tools.opengate.data.SignInResponse
-import ru.kode.tools.opengate.modules.auth.domain.Barrier
+import ru.kode.tools.opengate.data.GatesListResponse
+import ru.kode.tools.opengate.modules.auth.domain.Credentials
 
 internal class CloudDataSource(
-    private val mapper: Mapper<SignInResponse.Success, Barrier>,
-    private val api: Api
+    private val api: Api,
 )  {
-    suspend fun signIn(login: String, password: String): Response<List<Barrier>> {
+    suspend fun signIn(login: String, password: String): Response<Boolean> {
         val response = api.signIn(login, password)
 
         when (response.status) {
             HttpStatusCode.OK -> {
                 return try {
-                    val data = response.body<List<SignInResponse.Success>>()
+                    response.body<List<GatesListResponse.Success>>()
 
-                    Response.Success(
-                        data = mapper.map(data)
-                    )
+                    authenticate(Credentials(login = login, password = password))
+
+                    Response.Success(true)
                 } catch (e: JsonConvertException) {
-                    val data = response.body<SignInResponse.Error>()
+                    val data = response.body<GatesListResponse.Error>()
 
                     Response.Failed(Error(data.error.msg))
                 } catch (e: RuntimeException) {
@@ -43,4 +36,8 @@ internal class CloudDataSource(
             IllegalStateException("Failed to auth")
         )
     }
+
+    fun authenticate(credentials: Credentials) = api.authenticate(credentials.login, credentials.password)
+
+    fun logout() = api.logout()
 }

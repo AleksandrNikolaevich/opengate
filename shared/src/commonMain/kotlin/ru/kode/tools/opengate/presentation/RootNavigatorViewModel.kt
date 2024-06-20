@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.presentation.presentation
+package ru.kode.tools.opengate.presentation
 
 import com.arkivanov.mvikotlin.core.binder.Binder
 import com.arkivanov.mvikotlin.extensions.coroutines.bind

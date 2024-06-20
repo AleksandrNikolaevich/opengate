@@ -1,8 +1,8 @@
 package ru.kode.tools.opengate.modules.auth.data
 
-import io.github.aakira.napier.Napier
 import ru.kode.tools.opengate.core.SecurityStorage
 import ru.kode.tools.opengate.core.SecurityStorageFactory
+import ru.kode.tools.opengate.modules.auth.domain.Credentials
 
 class SecurityStorageSource(private val securityStorageFactory: SecurityStorageFactory) {
     private val storage: SecurityStorage = securityStorageFactory.create()
@@ -36,6 +36,4 @@ class SecurityStorageSource(private val securityStorageFactory: SecurityStorageF
         private const val LOGIN_KEY = "login"
         private const val PASSWORD_KEY = "password"
     }
-
-    data class Credentials(val login: String, val password: String)
 }

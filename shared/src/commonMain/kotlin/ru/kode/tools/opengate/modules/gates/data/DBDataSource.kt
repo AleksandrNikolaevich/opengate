@@ -14,6 +14,20 @@ internal class DBDataSource(
         return dbQuery.getBarriers(::mapBarrierSelecting).executeAsList()
     }
 
+    internal fun addGates(gates: List<Gate>) {
+        dbQuery.transaction {
+            gates.forEach(::addGate)
+        }
+    }
+
+    internal fun addGate(gate: Gate) {
+        dbQuery.updateBarrierWithId(gate.id, gate.key, gate.name, if (gate.isAvailable) 1 else 0)
+    }
+
+    internal fun clearData() {
+        dbQuery.removeBarriers()
+    }
+
     private fun mapBarrierSelecting(
         id: String,
         key: String,

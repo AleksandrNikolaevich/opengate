@@ -4,9 +4,9 @@ import ru.kode.tools.opengate.core.Response
 import ru.kode.tools.opengate.modules.auth.data.SecurityStorageSource
 
 internal interface Repository {
-    suspend fun signIn(login: String, password: String): Response<List<Barrier>>
+    suspend fun signIn(login: String, password: String): Response<Boolean>
 
-    fun getCredentials(): SecurityStorageSource.Credentials?
+    fun checkLogin(): Boolean
 
-    fun clearLocalData()
+    fun logout()
 }

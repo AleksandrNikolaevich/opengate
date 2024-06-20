@@ -6,10 +6,8 @@ import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import io.github.aakira.napier.Napier
 import org.koin.dsl.module
 import ru.kode.tools.opengate.modules.auth.data.CloudDataSource
-import ru.kode.tools.opengate.modules.auth.data.DBDataSource
 import ru.kode.tools.opengate.modules.auth.data.RepositoryImpl
 import ru.kode.tools.opengate.modules.auth.data.SecurityStorageSource
-import ru.kode.tools.opengate.modules.auth.data.mappers.SignInResponseMapper
 import ru.kode.tools.opengate.modules.auth.domain.AuthStore
 import ru.kode.tools.opengate.modules.auth.domain.Repository
 
@@ -33,7 +31,6 @@ internal val authModule = module {
     single<Repository>() {
         RepositoryImpl(
             cloudDataSource = get(),
-            dbDataSource = get(),
             securityStorage = get()
         )
     }
@@ -41,13 +38,6 @@ internal val authModule = module {
     single<CloudDataSource>() {
         CloudDataSource(
             api = get(),
-            mapper = SignInResponseMapper()
-        )
-    }
-
-    single<DBDataSource>() {
-        DBDataSource(
-            driverFactory = get()
         )
     }
 

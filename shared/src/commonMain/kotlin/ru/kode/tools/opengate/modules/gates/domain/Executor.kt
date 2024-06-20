@@ -16,13 +16,27 @@ internal class Executor(
         getState: () -> GatesStore.State
     ) = when (intent) {
         is GatesStore.Intent.Init -> getGates()
+        is GatesStore.Intent.GetGates -> getGates(intent.force)
         is GatesStore.Intent.Open -> openGate(intent.id, intent.key)
+        is GatesStore.Intent.Logout -> reset()
     }
 
-    private fun getGates() {
-        val gates = repository.getGates()
+    private suspend fun getGates(force: Boolean = false) {
+        dispatch(StoreFactory.Message.SetLoading)
 
-        dispatch(StoreFactory.Message.SetData(gates))
+        when (val response = repository.getGates(force)) {
+            is Response.Success -> {
+                dispatch(StoreFactory.Message.SetData(response.data))
+            }
+            is Response.Cached -> {
+                dispatch(StoreFactory.Message.SetData(response.data))
+                getGates(true)
+            }
+            is Response.Failed -> {
+                dispatch(StoreFactory.Message.SetError(response.throwable.message ?: "Error"))
+            }
+        }
+
     }
 
     private suspend fun openGate(id: String, key: String) {
@@ -43,5 +57,10 @@ internal class Executor(
             }
             else -> dispatch(StoreFactory.Message.SetError("Unknown error"))
         }
+    }
+
+    private fun reset() {
+        repository.clearData()
+        dispatch(StoreFactory.Message.Reset)
     }
 }

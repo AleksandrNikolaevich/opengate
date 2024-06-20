@@ -8,10 +8,14 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.Parameters
 import io.ktor.http.contentType
+import ru.kode.tools.opengate.domain.AuthError
 
-internal class Api(
+class Api(
     private val httpClient: HttpClient
 ) {
+    private var login: String? = null
+    private var password: String? = null
+
     suspend fun signIn(login: String, password: String): HttpResponse {
         return httpClient.post("https://security.eldes.lt/api1?gatelogin=1") {
             setBody(
@@ -23,7 +27,18 @@ internal class Api(
         }
     }
 
-    suspend fun openGate(login: String, id: String, key: String): HttpResponse {
+    suspend fun getGates(): HttpResponse {
+        if (login == null || password == null) {
+            throw AuthError()
+        }
+        return signIn(login!!, password!!)
+    }
+
+    suspend fun openGate(id: String, key: String): HttpResponse {
+        if (login == null || password == null) {
+            throw AuthError()
+        }
+
         return httpClient.post("https://security.eldes.lt/api1") {
             setBody(
                 FormDataContent(Parameters.build {
@@ -37,5 +52,15 @@ internal class Api(
                 parameters.append("key", key)
             }
         }
+    }
+
+    fun authenticate(login: String, password: String) {
+        this.login = login
+        this.password = password
+    }
+
+    fun logout() {
+        login = null
+        password = null
     }
 }

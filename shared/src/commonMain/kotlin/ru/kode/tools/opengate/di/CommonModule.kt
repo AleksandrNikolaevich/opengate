@@ -5,6 +5,7 @@ import io.ktor.client.HttpClient
 import org.koin.dsl.module
 import ru.kode.tools.opengate.core.HttpClientFactory
 import ru.kode.tools.opengate.data.Api
+import ru.kode.tools.opengate.domain.AuthService
 
 internal var commonModule = module {
     single {
@@ -21,6 +22,13 @@ internal var commonModule = module {
         }
         HttpClientFactory().create(
             logger = logger,
+        )
+    }
+
+    single {
+        AuthService(
+            authStore = get(),
+            gatesStore = get()
         )
     }
 }

@@ -3,7 +3,7 @@ package ru.kode.tools.opengate.data
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-interface SignInResponse {
+interface GatesListResponse {
     @Serializable
     data class Success(
         val id: String,

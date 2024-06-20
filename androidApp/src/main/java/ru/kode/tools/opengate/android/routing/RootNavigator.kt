@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.get
 import ru.kode.tools.opengate.android.screens.SplashScreen
 import ru.kode.tools.opengate.android.screens.signin.SignInScreen
-import ru.kode.tools.opengate.presentation.presentation.RootNavigatorViewModel
+import ru.kode.tools.opengate.presentation.RootNavigatorViewModel
 
 sealed class Screen(val route: String) {
     data object SignIn : Screen("sign-in")

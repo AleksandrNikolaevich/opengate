@@ -24,9 +24,8 @@ internal class StoreFactory(
     sealed interface Message {
         data object SetLoading : Message
         data class SetData(val gates: List<Gate>) : Message
-
         data class SetError(val error: String?) : Message
-
         data class SetGateState(val state: OpenGateState) : Message
+        data object Reset : Message
     }
 }

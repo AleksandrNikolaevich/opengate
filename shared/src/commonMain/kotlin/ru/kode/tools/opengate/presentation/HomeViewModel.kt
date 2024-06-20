@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.presentation.presentation
+package ru.kode.tools.opengate.presentation
 
 import com.arkivanov.mvikotlin.core.binder.Binder
 import com.arkivanov.mvikotlin.extensions.coroutines.bind
@@ -27,11 +27,11 @@ class HomeViewModel(
             store.states bindTo (::acceptState)
         }
         binder.start()
-
-        store.accept(GatesStore.Intent.Init)
     }
 
     fun openGate(gate: Gate) = store.accept(GatesStore.Intent.Open(gate.id, gate.key))
+    fun forceReload() = store.accept(GatesStore.Intent.GetGates(true))
+    fun init() =  store.accept(GatesStore.Intent.Init)
 
     private fun acceptState(state: GatesStore.State) {
         mutableState.value = state

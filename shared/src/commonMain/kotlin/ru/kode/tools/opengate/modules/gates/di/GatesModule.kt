@@ -8,7 +8,7 @@ import org.koin.dsl.module
 import ru.kode.tools.opengate.modules.gates.data.CloudDataSource
 import ru.kode.tools.opengate.modules.gates.data.DBDataSource
 import ru.kode.tools.opengate.modules.gates.data.RepositoryImpl
-import ru.kode.tools.opengate.modules.gates.data.SecurityStorageSource
+import ru.kode.tools.opengate.modules.gates.data.mappers.GatesResponseMapper
 import ru.kode.tools.opengate.modules.gates.domain.GatesStore
 import ru.kode.tools.opengate.modules.gates.domain.Repository
 
@@ -32,7 +32,6 @@ internal val gatesModule = module {
     single<Repository>() {
         RepositoryImpl(
             dbDataSource = get(),
-            securityStorageSource = get(),
             cloudDataSource = get()
         )
     }
@@ -40,18 +39,13 @@ internal val gatesModule = module {
     single<CloudDataSource>() {
         CloudDataSource(
             api = get(),
+            mapper = GatesResponseMapper()
         )
     }
 
     single<DBDataSource>() {
         DBDataSource(
             driverFactory = get()
-        )
-    }
-
-    single<SecurityStorageSource> {
-        SecurityStorageSource(
-            securityStorageFactory = get()
         )
     }
 }

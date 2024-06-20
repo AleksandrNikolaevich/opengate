@@ -14,4 +14,5 @@
     <string name="logout_description">You will need to login again</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="cancel">Cancel</string>
+    <string name="opened">Opened</string>
 </resources>

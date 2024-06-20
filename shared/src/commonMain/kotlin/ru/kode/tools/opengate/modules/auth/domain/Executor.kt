@@ -29,19 +29,14 @@ internal class Executor(
         }
     }
 
-    private suspend fun checkLogin() {
-        val credentials = repository.getCredentials()
+    private fun checkLogin() {
+        val isLoggedIn = repository.checkLogin()
 
-        if (credentials != null) {
-            dispatch(StoreFactory.Message.SetLoggedIn(true))
-            signIn(credentials.login, credentials.password)
-        } else {
-            dispatch(StoreFactory.Message.SetLoggedIn(false))
-        }
+        dispatch(StoreFactory.Message.SetLoggedIn(isLoggedIn))
     }
 
     private fun logout() {
-        repository.clearLocalData()
+        repository.logout()
         dispatch(StoreFactory.Message.SetLoggedIn(false))
     }
 }
