@@ -21,6 +21,7 @@ struct HomeScreen: View {
       } else {
         List(0..<gatesCount, id: \.self) { index in
           renderListItem(gate: state.gates![index])
+            .listRowInsets(EdgeInsets(top: 6, leading: .zero, bottom: 6, trailing: .zero))
         }
         .refreshable {
           isRefreshing = true
