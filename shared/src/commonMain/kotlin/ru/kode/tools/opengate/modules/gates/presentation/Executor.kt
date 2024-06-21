@@ -1,10 +1,11 @@
-package ru.kode.tools.opengate.modules.gates.domain
+package ru.kode.tools.opengate.modules.gates.presentation
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withTimeout
 import ru.kode.tools.opengate.core.BaseExecutor
 import ru.kode.tools.opengate.core.Response
+import ru.kode.tools.opengate.modules.gates.domain.OpenGateState
+import ru.kode.tools.opengate.modules.gates.domain.Repository
 
 internal class Executor(
     private val repository: Repository,

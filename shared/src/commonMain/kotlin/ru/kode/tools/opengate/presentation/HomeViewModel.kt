@@ -10,7 +10,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.kode.tools.opengate.modules.gates.domain.Gate
-import ru.kode.tools.opengate.modules.gates.domain.GatesStore
+import ru.kode.tools.opengate.modules.gates.presentation.GatesStore
 
 class HomeViewModel(
     private val store: GatesStore
@@ -31,7 +31,7 @@ class HomeViewModel(
 
     fun openGate(gate: Gate) = store.accept(GatesStore.Intent.Open(gate.id, gate.key))
     fun forceReload() = store.accept(GatesStore.Intent.GetGates(true))
-    fun init() =  store.accept(GatesStore.Intent.Init)
+    fun run() =  store.accept(GatesStore.Intent.Init)
 
     private fun acceptState(state: GatesStore.State) {
         mutableState.value = state

@@ -1,8 +1,10 @@
-package ru.kode.tools.opengate.modules.gates.domain
+package ru.kode.tools.opengate.modules.gates.presentation
 
 import com.arkivanov.mvikotlin.core.store.Store
+import ru.kode.tools.opengate.modules.gates.domain.Gate
+import ru.kode.tools.opengate.modules.gates.domain.OpenGateState
 
-interface GatesStore : Store<GatesStore.Intent,GatesStore.State, Nothing > {
+interface GatesStore : Store<GatesStore.Intent, GatesStore.State, Nothing > {
     data class State internal constructor(
         val isLoading: Boolean = false,
         val error: String? = null,

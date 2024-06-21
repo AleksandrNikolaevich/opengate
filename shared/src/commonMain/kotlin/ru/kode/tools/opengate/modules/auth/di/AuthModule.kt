@@ -8,12 +8,12 @@ import org.koin.dsl.module
 import ru.kode.tools.opengate.modules.auth.data.CloudDataSource
 import ru.kode.tools.opengate.modules.auth.data.RepositoryImpl
 import ru.kode.tools.opengate.modules.auth.data.SecurityStorageSource
-import ru.kode.tools.opengate.modules.auth.domain.AuthStore
+import ru.kode.tools.opengate.modules.auth.presentation.AuthStore
 import ru.kode.tools.opengate.modules.auth.domain.Repository
 
 internal val authModule = module {
     single<AuthStore>() {
-        ru.kode.tools.opengate.modules.auth.domain.StoreFactory(
+        ru.kode.tools.opengate.modules.auth.presentation.StoreFactory(
             storeFactory = get(),
             repository = get(),
         ).create()

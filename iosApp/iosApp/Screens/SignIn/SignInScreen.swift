@@ -7,9 +7,11 @@ struct SignInScreen: View {
   
   private var state: AuthStoreState { viewModel.state(\.state) }
   
+  @FocusState private var focused: Bool
+  
   var body: some View {
     let hasError = !(state.error ?? "").isEmpty
-    let borderColor: Color = hasError ? .red : .secondary
+    let borderColor: Color = hasError ? .red : Color(UIColor.separator)
     
     VStack {
       Text("OpenGate").font(.largeTitle)
@@ -19,6 +21,7 @@ struct SignInScreen: View {
           .keyboardType(.phonePad)
           .padding(.vertical, 8)
           .padding(.horizontal, 16)
+          .focused($focused)
         
         Divider()
           .frame(height: 1)
@@ -28,6 +31,7 @@ struct SignInScreen: View {
           .padding(.vertical, 8)
           .padding(.horizontal, 16)
       }
+      .background(Color(UIColor.systemBackground))
       .addBorder(borderColor, width: 1, cornerRadius: 12)
       
       if (hasError) {
@@ -42,6 +46,11 @@ struct SignInScreen: View {
       
     }
       .padding(48)
+      .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+      .background(Color(UIColor.systemGroupedBackground))
+      .onAppear {
+        focused = true
+      }
   }
   
   @ViewBuilder

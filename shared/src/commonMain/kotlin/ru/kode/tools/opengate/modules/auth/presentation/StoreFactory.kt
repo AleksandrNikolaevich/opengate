@@ -1,7 +1,8 @@
-package ru.kode.tools.opengate.modules.auth.domain
+package ru.kode.tools.opengate.modules.auth.presentation
 
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
+import ru.kode.tools.opengate.modules.auth.domain.Repository
 
 internal class StoreFactory(
     private val storeFactory: StoreFactory,

@@ -9,12 +9,12 @@ import ru.kode.tools.opengate.modules.gates.data.CloudDataSource
 import ru.kode.tools.opengate.modules.gates.data.DBDataSource
 import ru.kode.tools.opengate.modules.gates.data.RepositoryImpl
 import ru.kode.tools.opengate.modules.gates.data.mappers.GatesResponseMapper
-import ru.kode.tools.opengate.modules.gates.domain.GatesStore
+import ru.kode.tools.opengate.modules.gates.presentation.GatesStore
 import ru.kode.tools.opengate.modules.gates.domain.Repository
 
 internal val gatesModule = module {
     single<GatesStore>() {
-        ru.kode.tools.opengate.modules.gates.domain.StoreFactory(
+        ru.kode.tools.opengate.modules.gates.presentation.StoreFactory(
             storeFactory = get(),
             repository = get(),
         ).create()

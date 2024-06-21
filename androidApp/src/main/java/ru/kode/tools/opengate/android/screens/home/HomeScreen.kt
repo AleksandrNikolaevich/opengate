@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import ru.kode.tools.opengate.android.R
 import ru.kode.tools.opengate.presentation.HomeViewModel
@@ -69,7 +70,7 @@ fun HomeScreen(
     }
 
     LaunchedEffect(true) {
-        viewModel.init()
+        viewModel.run()
     }
 
     Scaffold(
@@ -97,8 +98,10 @@ fun HomeScreen(
                 actions = {
                     IconButton(onClick = onOpenProfile) {
                         Icon(
+                            modifier = Modifier.size(32.dp),
                             imageVector = Icons.Outlined.AccountCircle,
-                            contentDescription = stringResource(id = R.string.profile)
+                            contentDescription = stringResource(id = R.string.profile),
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
@@ -120,15 +123,18 @@ fun HomeScreen(
                         val gateState = state.openStates.find { state -> state.id == item.id }?.state
                             ?: OpenGateState.State.PENDING
 
+
                         ListItem(
                             modifier = Modifier.clickable {
                                 viewModel.openGate(item)
                             },
                             headlineContent = {
-                                Text(text = item.name)
+                                Text(
+                                    text = item.name,
+                                    fontSize = 20.sp
+                                )
                             },
                             overlineContent = {
-
                                 if (item.isAvailable)
                                     Text(text = "ONLINE", color = Color.Gray)
                                 else

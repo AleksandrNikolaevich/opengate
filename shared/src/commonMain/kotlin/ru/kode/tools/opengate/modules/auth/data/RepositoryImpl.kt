@@ -1,5 +1,6 @@
 package ru.kode.tools.opengate.modules.auth.data
 
+import io.github.aakira.napier.Napier
 import ru.kode.tools.opengate.core.Response
 import ru.kode.tools.opengate.modules.auth.domain.Credentials
 import ru.kode.tools.opengate.modules.auth.domain.Repository

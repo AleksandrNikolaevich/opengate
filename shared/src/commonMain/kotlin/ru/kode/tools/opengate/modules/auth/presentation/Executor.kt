@@ -1,8 +1,9 @@
-package ru.kode.tools.opengate.modules.auth.domain
+package ru.kode.tools.opengate.modules.auth.presentation
 
 import kotlinx.coroutines.Dispatchers
 import ru.kode.tools.opengate.core.BaseExecutor
 import ru.kode.tools.opengate.core.Response
+import ru.kode.tools.opengate.modules.auth.domain.Repository
 
 internal class Executor(
     private val repository: Repository,

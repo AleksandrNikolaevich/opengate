@@ -1,7 +1,10 @@
-package ru.kode.tools.opengate.modules.gates.domain
+package ru.kode.tools.opengate.modules.gates.presentation
 
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
+import ru.kode.tools.opengate.modules.gates.domain.Gate
+import ru.kode.tools.opengate.modules.gates.domain.OpenGateState
+import ru.kode.tools.opengate.modules.gates.domain.Repository
 
 internal class StoreFactory(
     private val storeFactory: StoreFactory,

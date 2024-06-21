@@ -43,7 +43,6 @@ fun DataRow(
             Column {
                 Text(
                     text = title,
-                    fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
                 Text(

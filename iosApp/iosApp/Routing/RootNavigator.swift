@@ -9,7 +9,7 @@ struct RootNavigator: View {
     let appState = viewModel.state(\.appState)
     
     ZStack {
-      Transition(showing: appState == .pending, direction: .left) {
+      Transition(showing: appState == .pending, direction: .right) {
         SplashScreen()
       }
       
@@ -17,9 +17,10 @@ struct RootNavigator: View {
         ProtectedNavigator()
       }
       
-      Transition(showing: appState == .needAuth, direction: .right) {
+      Transition(showing: appState == .needAuth, direction:  appState == .authenticated ? .right : .left) {
         SignInScreen()
       }
     }
+    .background(Color(UIColor.systemGroupedBackground))
   }
 }

@@ -13,6 +13,7 @@ struct ProtectedNavigator: View {
         }
       }
     }
+    .navigationViewStyle(.stack)
   }
 }
 

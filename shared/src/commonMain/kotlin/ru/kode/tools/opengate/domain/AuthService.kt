@@ -1,8 +1,7 @@
 package ru.kode.tools.opengate.domain
 
-import ru.kode.tools.opengate.data.Api
-import ru.kode.tools.opengate.modules.auth.domain.AuthStore
-import ru.kode.tools.opengate.modules.gates.domain.GatesStore
+import ru.kode.tools.opengate.modules.auth.presentation.AuthStore
+import ru.kode.tools.opengate.modules.gates.presentation.GatesStore
 
 class AuthService(
     private val authStore: AuthStore,
