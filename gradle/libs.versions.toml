@@ -1,0 +1,106 @@
+[versions]
+kotlin = "1.9.10"
+ktor = "2.3.2"
+coroutines = "1.7.3"
+mvi = "3.2.1"
+moko = "0.16.1"
+koin = "3.1.5"
+sqldelight = "2.0.0"
+napier = "2.6.1"
+kvault = "1.12.0"
+compose = "1.4.3"
+navigation-compose = "2.7.3"
+material = "1.2.1"
+material-icons = "1.5.2"
+accompanist-systemuicontroller = "0.32.0"
+activity-compose = "1.6.1"
+
+[libraries]
+# network
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
+# coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+# MVI
+mvikotlin = { group = "com.arkivanov.mvikotlin", name = "mvikotlin", version.ref = "mvi" }
+mvikotlin-main = { group = "com.arkivanov.mvikotlin", name = "mvikotlin-main", version.ref = "mvi" }
+mvikotlin-extensions-coroutines = { group = "com.arkivanov.mvikotlin", name = "mvikotlin-extensions-coroutines", version.ref = "mvi" }
+mvikotlin-logging = { group = "com.arkivanov.mvikotlin", name = "mvikotlin-logging", version.ref = "mvi" }
+# View model
+mvvm-core = { group = "dev.icerock.moko", name = "mvvm-core", version.ref = "moko" }
+mvvm-flow = { group = "dev.icerock.moko", name = "mvvm-flow", version.ref = "moko" }
+# DI
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+# DB
+android-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+native-driver = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "sqldelight" }
+# Logger
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+# Security Storage
+kvault = { module = "com.liftric:kvault", version.ref = "kvault" }
+# Compose
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+
+[bundles]
+shared-common = [
+    # network
+    "ktor-client-core",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json",
+    "ktor-client-logging",
+    # coroutines
+    "kotlinx-coroutines-core",
+    # MVI
+    "mvikotlin",
+    "mvikotlin-main",
+    "mvikotlin-extensions-coroutines",
+    "mvikotlin-logging",
+    # View model
+    "mvvm-core",
+    "mvvm-flow",
+    # DI
+    "koin-core",
+    #Logger
+    "napier",
+    #SecurityStorage
+    "kvault",
+]
+shared-android = [
+    # network
+    "ktor-client-android",
+    # DB
+    "android-driver",
+]
+shared-ios = [
+    # network
+    "ktor-client-darwin",
+    # DB
+    "native-driver",
+]
+android = [
+    # DI
+    "koin-androidx-compose",
+    # Compose
+    "compose-foundation",
+    "compose-ui",
+    "compose-ui-tooling",
+    "compose-ui-tooling-preview",
+    "navigation-compose",
+    "accompanist-systemuicontroller",
+    "activity-compose",
+    "material3",
+    "material-icons-extended",
+]

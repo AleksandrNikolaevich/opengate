@@ -1,9 +1,10 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version Versions.kotlinVersion
-    id("app.cash.sqldelight") version Deps.DB.version
+    kotlin("plugin.serialization") version libs.versions.kotlin
+    id("app.cash.sqldelight") version libs.versions.sqldelight
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -30,52 +31,20 @@ kotlin {
         framework {
             baseName = "MultiPlatformLibrary"
 
-            //ViewModel (ios extra)
-            with(Deps.ViewModel) {
-                export(core)
-                export(flow)
-            }
-
+            // ViewModel (ios extra)
+            export(libs.mvvm.core)
+            export(libs.mvvm.flow)
         }
     }
     
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.bundles.shared.common)
 
-                //network
-                with(Deps.Network) {
-                    implementation(core)
-                    implementation(contentNegotiation)
-                    implementation(serialization)
-                    implementation(logger)
-                }
-
-                //coroutines
-                implementation(Deps.Coroutines.core)
-
-                //mvi
-                with(Deps.MVI) {
-                    implementation(core)
-                    implementation(main)
-                    implementation(coroutines)
-                    implementation(logger)
-                }
-
-                //ViewModel
-                with(Deps.ViewModel) {
-                    api(core)
-                    api(flow)
-                }
-
-                //DI
-                implementation(Deps.DI.core)
-
-                //Logger
-                implementation(Deps.Logger.core)
-
-                //SecurityStorage
-                implementation(Deps.SecurityStorage.common)
+                // ViewModel (common extra)
+                api(libs.mvvm.core)
+                api(libs.mvvm.flow)
             }
         }
         val commonTest by getting {
@@ -86,21 +55,13 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                //network
-                implementation(Deps.Network.Client.android)
-
-                //DB
-                implementation(Deps.DB.android)
+                implementation(libs.bundles.shared.android)
             }
         }
 
         val iosMain by getting {
             dependencies {
-                //network
-                implementation(Deps.Network.Client.ios)
-
-                //DB
-                implementation(Deps.DB.ios)
+                implementation(libs.bundles.shared.ios)
             }
         }
     }

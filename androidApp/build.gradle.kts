@@ -19,7 +19,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtensionVersion
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -43,27 +43,5 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    with(Deps.AndroidX.Compose) {
-        implementation(ui)
-        implementation(foundation)
-        implementation(activity)
-        implementation(systemUiController)
-    }
-
-    with(Deps.AndroidX.Compose.Tooling) {
-        implementation(ui)
-        implementation(preview)
-    }
-
-    with(Deps.AndroidX.Compose.Material) {
-        implementation(core)
-        implementation(icons)
-    }
-
-    with(Deps.AndroidX.Compose.Navigation) {
-        implementation(core)
-    }
-
-    //DI
-    implementation(Deps.DI.compose)
+    implementation(libs.bundles.android)
 }
