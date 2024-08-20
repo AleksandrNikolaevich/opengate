@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":shared:foundation"))
+    implementation(project(":shared:app"))
+    implementation(project(":shared:features:auth"))
+    implementation(project(":shared:features:gates"))
     implementation(libs.bundles.android)
 }

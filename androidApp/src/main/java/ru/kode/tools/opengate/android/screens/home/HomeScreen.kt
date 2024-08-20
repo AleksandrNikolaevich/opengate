@@ -37,11 +37,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.delay
 import ru.kode.tools.opengate.android.R
-import ru.kode.tools.opengate.presentation.HomeViewModel
+import ru.kode.tools.opengate.app.presentation.HomeViewModel
 import org.koin.androidx.compose.get
-import ru.kode.tools.opengate.modules.gates.domain.OpenGateState
+import ru.kode.tools.opengate.features.gates.domain.OpenGateState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

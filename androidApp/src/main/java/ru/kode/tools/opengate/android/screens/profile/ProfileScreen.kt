@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import ru.kode.tools.opengate.android.R
-import ru.kode.tools.opengate.presentation.ProfileViewModel
+import ru.kode.tools.opengate.app.presentation.ProfileViewModel
 import org.koin.androidx.compose.get
 import ru.kode.tools.opengate.android.ui.DataRow
 

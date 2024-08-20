@@ -55,7 +55,7 @@ accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 
 [bundles]
-shared-common = [
+shared-foundation = [
     # network
     "ktor-client-core",
     "ktor-client-content-negotiation",
@@ -68,9 +68,6 @@ shared-common = [
     "mvikotlin-main",
     "mvikotlin-extensions-coroutines",
     "mvikotlin-logging",
-    # View model
-    "mvvm-core",
-    "mvvm-flow",
     # DI
     "koin-core",
     #Logger
@@ -90,6 +87,42 @@ shared-ios = [
     # DB
     "native-driver",
 ]
+shared-app = [
+    # MVI
+    "mvikotlin",
+    "mvikotlin-main",
+    "mvikotlin-extensions-coroutines",
+    "mvikotlin-logging",
+    # View model
+    "mvvm-core",
+    "mvvm-flow",
+    # DI
+    "koin-core",
+    #Logger
+    "napier",
+]
+shared-feature-core = [
+    # network
+    "ktor-client-core",
+    # coroutines
+    "kotlinx-coroutines-core",
+    # MVI
+    "mvikotlin",
+    "mvikotlin-main",
+    "mvikotlin-extensions-coroutines",
+    "mvikotlin-logging",
+    # DI
+    "koin-core",
+    #Logger
+    "napier",
+    #SecurityStorage
+    "kvault",
+]
+shared-feature-auth = [
+    #SecurityStorage
+    "kvault",
+]
+shared-feature-gates = []
 android = [
     # DI
     "koin-androidx-compose",

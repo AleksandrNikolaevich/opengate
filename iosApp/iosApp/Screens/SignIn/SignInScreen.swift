@@ -5,7 +5,7 @@ import mokoMvvmFlowSwiftUI
 struct SignInScreen: View {
   @ObservedObject private var viewModel = DI().signInViewModel()
   
-  private var state: AuthStoreState { viewModel.state(\.state) }
+  private var state: AuthAuthStoreState { viewModel.state(\.state) }
   
   @FocusState private var focused: Bool
   

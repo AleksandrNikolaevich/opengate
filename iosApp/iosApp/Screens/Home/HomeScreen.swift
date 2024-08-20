@@ -4,7 +4,7 @@ import MultiPlatformLibrary
 struct HomeScreen: View {
   @ObservedObject private var viewModel = DI().homeViewModel()
   
-  private var state: GatesStoreState { viewModel.state(\.state) }
+  private var state: GatesGatesStoreState { viewModel.state(\.state) }
   
   @State var isRefreshing = false
   
@@ -50,7 +50,7 @@ struct HomeScreen: View {
   }
   
   @ViewBuilder
-  private func renderListItem(gate: Gate) -> some View {
+  private func renderListItem(gate: GatesGate) -> some View {
     let gateState = state.openStates.first{ $0.id == gate.id }?.state ?? .pending
     
     ListItem(

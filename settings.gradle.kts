@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "OpenGate"
 include(":androidApp")
-include(":shared")
+include(":shared:app")
+include(":shared:foundation")
+include(":shared:features:auth")
+include(":shared:features:gates")
