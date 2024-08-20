@@ -9,7 +9,7 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.kode.tools.opengate.features.auth.presentation.AuthStore
+import ru.kode.tools.opengate.features.auth.domain.store.AuthStore
 
 class RootNavigatorViewModel(
     private val authStore: AuthStore,

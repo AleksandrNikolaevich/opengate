@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.features.auth.presentation
+package ru.kode.tools.opengate.features.auth.domain.store
 
 import kotlinx.coroutines.Dispatchers
 import ru.kode.tools.opengate.foundation.core.BaseExecutor
@@ -11,7 +11,7 @@ internal class Executor(
     mainContext = Dispatchers.Main
 ) {
     override suspend fun suspendExecuteIntent (
-        intent: AuthStore. Intent,
+        intent: AuthStore.Intent,
         getState: () -> AuthStore.State,
     ) = when (intent) {
         is AuthStore.Intent.SignIn -> signIn(intent.login, intent.password)
@@ -25,7 +25,11 @@ internal class Executor(
         when (val response = repository.signIn(login, password)) {
 //            is Response.Cached -> dispatch(StoreFactory.Message.SetData(response.data, true))
             is Response.Success -> dispatch(StoreFactory.Message.SetLoggedIn(true))
-            is Response.Failed -> dispatch(StoreFactory.Message.SetError(response.throwable.message ?: "Error"))
+            is Response.Failed -> dispatch(
+                StoreFactory.Message.SetError(
+                    response.throwable.message ?: "Error"
+                )
+            )
             else -> dispatch(StoreFactory.Message.SetError("Unknown error"))
         }
     }

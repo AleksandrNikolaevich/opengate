@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.features.auth.presentation
+package ru.kode.tools.opengate.features.auth.domain.store
 
 internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<AuthStore.State, StoreFactory.Message> {
     override fun AuthStore.State.reduce(msg: StoreFactory.Message): AuthStore.State =

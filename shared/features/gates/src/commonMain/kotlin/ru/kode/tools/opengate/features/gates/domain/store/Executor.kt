@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.features.gates.presentation
+package ru.kode.tools.opengate.features.gates.domain.store
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -41,19 +41,33 @@ internal class Executor(
     }
 
     private suspend fun openGate(id: String, key: String) {
-        dispatch(StoreFactory.Message.SetGateState(OpenGateState(id,  OpenGateState.State.OPENING)))
+        dispatch(StoreFactory.Message.SetGateState(OpenGateState(id, OpenGateState.State.OPENING)))
         when (val response = repository.openGate(id, key)) {
             is Response.Success -> {
                 val state = if (response.data) OpenGateState.State.OPENED else OpenGateState.State.ERROR
-                dispatch(StoreFactory.Message.SetGateState(OpenGateState(id,  state)))
+                dispatch(StoreFactory.Message.SetGateState(OpenGateState(id, state)))
                 dispatch(StoreFactory.Message.SetError(null))
 
                 delay(1500L)
 
-                dispatch(StoreFactory.Message.SetGateState(OpenGateState(id,  OpenGateState.State.PENDING)))
+                dispatch(
+                    StoreFactory.Message.SetGateState(
+                        OpenGateState(
+                            id,
+                            OpenGateState.State.PENDING
+                        )
+                    )
+                )
             }
             is Response.Failed -> {
-                dispatch(StoreFactory.Message.SetGateState(OpenGateState(id,  OpenGateState.State.ERROR)))
+                dispatch(
+                    StoreFactory.Message.SetGateState(
+                        OpenGateState(
+                            id,
+                            OpenGateState.State.ERROR
+                        )
+                    )
+                )
                 dispatch(StoreFactory.Message.SetError(response.throwable.message ?: "Error"))
             }
             else -> dispatch(StoreFactory.Message.SetError("Unknown error"))

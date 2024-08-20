@@ -10,7 +10,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.kode.tools.opengate.features.gates.domain.Gate
-import ru.kode.tools.opengate.features.gates.presentation.GatesStore
+import ru.kode.tools.opengate.features.gates.domain.store.GatesStore
 
 class HomeViewModel(
     private val store: GatesStore

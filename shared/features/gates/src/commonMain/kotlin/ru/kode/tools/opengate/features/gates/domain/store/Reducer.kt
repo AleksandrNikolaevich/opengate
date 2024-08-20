@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.features.gates.presentation
+package ru.kode.tools.opengate.features.gates.domain.store
 
 internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<GatesStore.State, StoreFactory.Message> {
     override fun GatesStore.State.reduce(msg: StoreFactory.Message): GatesStore.State =

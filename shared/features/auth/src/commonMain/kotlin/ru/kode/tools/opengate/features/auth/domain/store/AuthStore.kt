@@ -1,4 +1,4 @@
-package ru.kode.tools.opengate.features.auth.presentation
+package ru.kode.tools.opengate.features.auth.domain.store
 
 import com.arkivanov.mvikotlin.core.store.Store
 
