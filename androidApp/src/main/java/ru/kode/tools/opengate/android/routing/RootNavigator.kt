@@ -31,36 +31,36 @@ fun RootNavigator(viewModel: RootNavigatorViewModel = get()) {
             RootNavigatorViewModel.AppState.PENDING -> Screen.SplashScreen.route
             RootNavigatorViewModel.AppState.NEED_AUTH -> Screen.SignIn.route
             RootNavigatorViewModel.AppState.AUTHENTICATED -> Screen.Home.route
+        },
+        enterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(600)
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(600)
+            )
+        },
+        popEnterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(300)
+            )
+        },
+        popExitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(300)
+            )
         }
     ) {
         when (appState) {
             RootNavigatorViewModel.AppState.PENDING ->
                 composable(
                     route = Screen.SplashScreen.route,
-                    enterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(600)
-                        )
-                    },
-                    exitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(600)
-                        )
-                    },
-                    popEnterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(300)
-                        )
-                    },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(300)
-                        )
-                    }
                 ) {
                     SplashScreen()
                 }
@@ -68,30 +68,6 @@ fun RootNavigator(viewModel: RootNavigatorViewModel = get()) {
             RootNavigatorViewModel.AppState.NEED_AUTH ->
                 composable(
                     route = Screen.SignIn.route,
-                    enterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(600)
-                        )
-                    },
-                    exitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(600)
-                        )
-                    },
-                    popEnterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(300)
-                        )
-                    },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(300)
-                        )
-                    }
                 ) {
                     SignInScreen()
                 }
@@ -99,30 +75,6 @@ fun RootNavigator(viewModel: RootNavigatorViewModel = get()) {
             RootNavigatorViewModel.AppState.AUTHENTICATED ->
                 composable(
                     route = Screen.Home.route,
-                    enterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(300)
-                        )
-                    },
-                    exitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(300)
-                        )
-                    },
-                    popEnterTransition = {
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(600)
-                        )
-                    },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(600)
-                        )
-                    }
                 ) {
                     ProtectedNavigator()
                 }
