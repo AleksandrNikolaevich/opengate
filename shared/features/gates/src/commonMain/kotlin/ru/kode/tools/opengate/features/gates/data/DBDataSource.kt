@@ -1,14 +1,12 @@
 package ru.kode.tools.opengate.features.gates.data
 
-import ru.kode.tools.opengate.foundation.core.DBDriverFactory
-import ru.kode.tools.opengate.foundation.core.createDatabase
+import ru.kode.tools.opengate.features.gates.GatesDatabase
 import ru.kode.tools.opengate.features.gates.domain.Gate
 
 internal class DBDataSource(
-    private val driverFactory: DBDriverFactory,
+    database: GatesDatabase,
 ) {
-    private val database = createDatabase(driverFactory)
-    private val dbQuery = database.databaseQueries
+    private val dbQuery = database.gatesDatabaseQueries
 
     internal fun getGates(): List<Gate> {
         return dbQuery.getBarriers(::mapBarrierSelecting).executeAsList()

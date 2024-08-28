@@ -5,12 +5,14 @@ import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import io.github.aakira.napier.Napier
 import org.koin.dsl.module
+import ru.kode.tools.opengate.features.gates.GatesDatabase
 import ru.kode.tools.opengate.features.gates.data.CloudDataSource
 import ru.kode.tools.opengate.features.gates.data.DBDataSource
 import ru.kode.tools.opengate.features.gates.data.RepositoryImpl
 import ru.kode.tools.opengate.features.gates.data.mappers.GatesResponseMapper
 import ru.kode.tools.opengate.features.gates.domain.store.GatesStore
 import ru.kode.tools.opengate.features.gates.domain.Repository
+import ru.kode.tools.opengate.foundation.core.DBDriverFactory
 
 val gatesModule = module {
     single<GatesStore>() {
@@ -45,7 +47,13 @@ val gatesModule = module {
 
     single<DBDataSource>() {
         DBDataSource(
-            driverFactory = get()
+            database = get()
         )
+    }
+
+    single<GatesDatabase>() {
+        val driverFactory: DBDriverFactory = get()
+
+        GatesDatabase(driverFactory.createDriver(GatesDatabase.Schema))
     }
 }

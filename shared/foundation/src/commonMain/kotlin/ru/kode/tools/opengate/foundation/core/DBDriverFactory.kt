@@ -1,17 +1,9 @@
 package ru.kode.tools.opengate.foundation.core
 
+import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
-import ru.kode.tools.opengate.Database
+import app.cash.sqldelight.db.SqlSchema
 
 expect class DBDriverFactory {
-    fun createDriver(): SqlDriver
-}
-
-fun createDatabase(driverFactory: DBDriverFactory): Database {
-    val driver = driverFactory.createDriver()
-    val database = Database(driver)
-
-    // Do more work with the database
-
-    return database
+    fun createDriver(schema: SqlSchema<QueryResult.Value<Unit>>): SqlDriver
 }

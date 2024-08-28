@@ -3,9 +3,10 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version libs.versions.kotlin
+    id("app.cash.sqldelight") version libs.versions.sqldelight
 }
 
-var packageName = App.bundleId + ".features.gates"
+var packageId = App.bundleId + ".features.gates"
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -52,9 +53,17 @@ kotlin {
 }
 
 android {
-    namespace = packageName
+    namespace = packageId
     compileSdk = Versions.Android.compileSdk
     defaultConfig {
         minSdk = Versions.Android.minSdk
+    }
+}
+
+sqldelight {
+    databases {
+        create("GatesDatabase") {
+            packageName.set(packageId)
+        }
     }
 }

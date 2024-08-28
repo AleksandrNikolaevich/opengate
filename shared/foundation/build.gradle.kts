@@ -56,11 +56,3 @@ android {
         minSdk = Versions.Android.minSdk
     }
 }
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName.set(App.bundleId)
-        }
-    }
-}
