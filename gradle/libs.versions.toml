@@ -14,6 +14,7 @@ material = "1.2.1"
 material-icons = "1.5.2"
 accompanist-systemuicontroller = "0.32.0"
 activity-compose = "1.6.1"
+runtime-livedata = "1.6.8"
 
 [libraries]
 # network
@@ -53,6 +54,7 @@ material-icons-extended = { module = "androidx.compose.material:material-icons-e
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtime-livedata" }
 
 [bundles]
 shared-foundation = [

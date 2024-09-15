@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "start": "export STORYBOOK_NATIVE_LOCAL_EMULATOR=true && yarn build:stories &&  storybook dev -p 53743",
+    "build:storybook": "yarn build:stories && storybook build",
+    "build:stories": "node ./stories-factory.js"
+  },
+  "dependencies": {
+    "@storybook/native-dev-middleware": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.2",
+    "@storybook/native": "^3.1.2",
+    "@storybook/native-components": "^3.1.2",
+    "@storybook/react-webpack5": "^7.5.3",
+    "change-case": "4.1.1",
+    "storybook": "^7.5.3"
+  },
+  "resolutions": {
+    "strip-ansi": "6.0.1",
+    "string-width": "4.2.0"
+  }
+}

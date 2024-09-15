@@ -10,3 +10,8 @@ local.properties
 xcuserdata
 
 iosApp/Pods
+
+*storybook.log
+*node_modules
+playground/stories.json
+playground/stories

@@ -1,6 +1,12 @@
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardCopyOption
+import kotlin.io.path.pathString
+
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 val appId = "${App.bundleId}.android"
@@ -39,6 +45,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    sourceSets {
+        getByName("debug") {
+            manifest.srcFile("build/generated/ksp/debug/resources/StorybookActivityManifest.xml")
+        }
+    }
 }
 
 dependencies {
@@ -47,4 +58,41 @@ dependencies {
     implementation(project(":shared:features:auth"))
     implementation(project(":shared:features:gates"))
     implementation(libs.bundles.android)
+    implementation(project(":story"))
+    implementation(libs.runtime.livedata)
+    ksp(project(":story"))
+}
+
+
+tasks.register("moveGeneratedFile") {
+    group = "build"
+    description = "Перемещает файл, сгенерированный KSP, в другую директорию."
+
+    doLast {
+        val generatedFilePath = project.buildDir.toPath()
+            .resolve("generated/ksp/debug/resources/stories.json")
+
+        println(generatedFilePath.pathString)
+
+        val targetDirectory: Path = Path.of("playground")
+
+        Files.createDirectories(targetDirectory)
+
+        if (Files.exists(generatedFilePath)) {
+            Files.move(
+                generatedFilePath,
+                targetDirectory.resolve(generatedFilePath.fileName),
+                StandardCopyOption.REPLACE_EXISTING
+            )
+            println("File moved to ${targetDirectory.resolve(generatedFilePath.fileName)}")
+        } else {
+            println("File ${generatedFilePath.fileName} not found!")
+        }
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name.startsWith("build") || name.startsWith("assemble")) {
+        finalizedBy("moveGeneratedFile")
+    }
 }
