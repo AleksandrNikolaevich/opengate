@@ -51,7 +51,7 @@ struct HomeScreen: View {
   
   @ViewBuilder
   private func renderListItem(gate: GatesGate) -> some View {
-    let gateState = state.openStates.first{ $0.id == gate.id }?.state ?? .pending
+    let gateState = gate.state
     
     ListItem(
       overlineContent: gate.isAvailable ? "ONLINE" : "OFFLINE",

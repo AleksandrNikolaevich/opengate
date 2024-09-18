@@ -89,11 +89,11 @@ class GateViewModel(
         binder.stop()
         store.dispose()
     }
-}
 
-data class State internal constructor(
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val gate: Gate? = null,
-    val shortName: String? = null,
-)
+    data class State internal constructor(
+        val isLoading: Boolean = false,
+        val error: String? = null,
+        val gate: Gate? = null,
+        val shortName: String? = null,
+    )
+}
