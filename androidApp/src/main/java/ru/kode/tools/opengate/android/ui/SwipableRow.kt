@@ -6,6 +6,7 @@ import androidx.compose.foundation.gestures.AnchoredDraggableState
 import androidx.compose.foundation.gestures.DraggableAnchors
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.anchoredDraggable
+import androidx.compose.foundation.gestures.animateTo
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 private enum class AnchoredDraggableSampleValue {
@@ -40,8 +43,8 @@ private enum class AnchoredDraggableSampleValue {
 fun SwipableRow(
     leftSideWidth: Dp = 100.dp,
     rightSideWidth: Dp = 100.dp,
-    left: (@Composable () -> Unit)? = null,
-    right: (@Composable () -> Unit)? = null,
+    left: (@Composable (dismiss: () -> Unit) -> Unit)? = null,
+    right: (@Composable (dismiss: () -> Unit) -> Unit)? = null,
     children: @Composable () -> Unit
 ) {
     val density = LocalDensity.current
@@ -63,6 +66,8 @@ fun SwipableRow(
 
     var layout by remember { mutableStateOf(IntSize.Zero) }
 
+    val coroutineScope = rememberCoroutineScope()
+
     val layoutDp = with(density) {  DpSize(
         width = layout.width.toDp(),
         height = layout.height.toDp())
@@ -70,8 +75,6 @@ fun SwipableRow(
 
     val leftSideWidthPx = with(density) { leftSideWidth.toPx() }
     val rightSideWidthPx = with(density) { rightSideWidth.toPx() }
-
-    println(layout)
 
     SideEffect {
         state.updateAnchors(
@@ -104,7 +107,11 @@ fun SwipableRow(
                         )
                     }
             ) {
-                left()
+                left {
+                    coroutineScope.launch {
+                        state.animateTo(AnchoredDraggableSampleValue.Center)
+                    }
+                }
             }
         }
 
@@ -140,7 +147,11 @@ fun SwipableRow(
                         )
                     }
             ) {
-                right()
+                right {
+                    coroutineScope.launch {
+                        state.animateTo(AnchoredDraggableSampleValue.Center)
+                    }
+                }
             }
         }
     }

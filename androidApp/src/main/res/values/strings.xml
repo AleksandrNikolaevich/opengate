@@ -14,5 +14,16 @@
     <string name="logout_description">You will need to login again</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
     <string name="opened">Opened</string>
+    <string name="gate">Gate</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+
+    <string name="gate_short_name">Shortname</string>
+    <string name="gate_short_name_placeholder">Main, Back, etc.</string>
+    <string name="gate_name">Gate name</string>
+    <string name="gate_status">Status</string>
+    <string name="gate_open">Open</string>
+    <string name="gate_change_name">Change the shortname</string>
 </resources>
