@@ -15,29 +15,27 @@ internal class CloudDataSource(
     private val api: Api
 )  {
     suspend fun openGate(id: String, key: String): Response<Boolean> {
-        val response = api.openGate(id, key)
+        try {
+            val response = api.openGate(id, key)
 
-        when (response.status) {
-            HttpStatusCode.OK -> {
-                return try {
-                    val data = response.body<OpenGateResponse.Success>()
+            when (response.status) {
+                HttpStatusCode.OK -> {
+                    return try {
+                        val data = response.body<OpenGateResponse.Success>()
 
-                    Response.Success(
-                        data = data.state == 1
-                    )
-                } catch (e: JsonConvertException) {
-                    val data = response.body<OpenGateResponse.Error>()
+                        Response.Success(
+                            data = data.state == 1
+                        )
+                    } catch (e: JsonConvertException) {
+                        val data = response.body<OpenGateResponse.Error>()
 
-                    Response.Failed(Error(data.error.msg))
-                } catch (e: RuntimeException) {
-                    Response.Failed(Error("Some problem. Try later..."))
+                        Response.Failed(Error(data.error.msg))
+                    }
                 }
             }
-        }
+        } catch (_: Throwable) {}
 
-        return Response.Failed(
-            IllegalStateException("Invalid response")
-        )
+        return Response.Failed(Error("Some problem. Try later..."))
     }
 
     suspend fun getGates(): Response<List<Gate>> {

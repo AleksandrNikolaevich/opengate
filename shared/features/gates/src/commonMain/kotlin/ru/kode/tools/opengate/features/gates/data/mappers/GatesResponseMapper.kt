@@ -10,7 +10,9 @@ internal class GatesResponseMapper : Mapper<GatesListResponse.Success, Gate> {
             id = item.id,
             key = item.key,
             name = item.name,
-            isAvailable = item.state == 1
+            isAvailable = item.state == 1,
+            state = Gate.OpenState.PENDING,
+            shortName = null,
         )
     }
 }

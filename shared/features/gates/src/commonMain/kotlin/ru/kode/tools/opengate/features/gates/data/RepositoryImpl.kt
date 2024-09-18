@@ -9,28 +9,36 @@ internal class RepositoryImpl(
     private val cloudDataSource: CloudDataSource,
 ) : Repository {
     override suspend fun getGates(force: Boolean): Response<List<Gate>> {
-        if (force) {
-            dbDataSource.clearData()
-            return getGatesWithPersistData()
-        }
-
         val cachedData = dbDataSource.getGates()
 
-        return if (cachedData.isNotEmpty())
+        return if (cachedData.isNotEmpty() && !force)
             Response.Cached(data = cachedData)
         else
-            getGatesWithPersistData()
+            getGatesWithPersistData(cachedData)
     }
 
     override suspend fun openGate(id: String, key: String): Response<Boolean> {
         return cloudDataSource.openGate(id, key)
     }
 
-    private suspend fun getGatesWithPersistData(): Response<List<Gate>> {
+    override suspend fun setShortName(id: String, shortName: String?) {
+        val gate = dbDataSource.getGates().find { gate -> gate.id == id } ?: return
+        dbDataSource.addOrUpdateGate(gate.copy(shortName = shortName))
+    }
+
+    private suspend fun getGatesWithPersistData(cachedData:  List<Gate>): Response<List<Gate>> {
         val remoteData = cloudDataSource.getGates()
 
         if (remoteData is Response.Success) {
-            dbDataSource.addGates(remoteData.data)
+            val listOfGates = remoteData.data.sortedBy(::sortById).map { item ->
+                val oldData = cachedData.find { gate -> gate.id == item.id }
+                item.copy(shortName = oldData?.shortName)
+            }
+
+
+            dbDataSource.addGates(listOfGates)
+
+            return Response.Success(listOfGates)
         }
 
         return remoteData

@@ -5,4 +5,10 @@ data class Gate(
     val key: String,
     val name: String,
     val isAvailable: Boolean,
-)
+    val state: OpenState,
+    val shortName: String?
+) {
+    enum class OpenState {
+        PENDING, OPENING, OPENED, ERROR
+    }
+}

@@ -1,8 +1,8 @@
 package ru.kode.tools.opengate.features.gates.domain.store
 
 internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<GatesStore.State, StoreFactory.Message> {
-    override fun GatesStore.State.reduce(msg: StoreFactory.Message): GatesStore.State =
-        when (msg) {
+    override fun GatesStore.State.reduce(msg: StoreFactory.Message): GatesStore.State {
+        return when (msg) {
             is StoreFactory.Message.SetLoading -> copy(
                 isLoading = true,
                 error = null,
@@ -19,15 +19,38 @@ internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<GatesStore.S
             )
 
             is StoreFactory.Message.SetGateState -> {
-                val newListStates = openStates.toMutableList()
-                val lastState = newListStates.find { item -> item.id == msg.state.id }
+                if (gates == null) {
+                    return copy()
+                }
 
-                newListStates.remove(lastState)
+                val newGatesList = gates.map { gate ->
+                    if (gate.id == msg.gateId) {
+                        return@map gate.copy(state = msg.state)
+                    }
 
-                newListStates.add(msg.state)
+                    return@map gate
+                }
 
                 copy(
-                    openStates = newListStates.toList(),
+                    gates = newGatesList,
+                )
+            }
+
+            is StoreFactory.Message.SetShortName -> {
+                if (gates == null) {
+                    return copy()
+                }
+
+                val newGatesList = gates.map { gate ->
+                    if (gate.id == msg.gateId) {
+                        return@map gate.copy(shortName = msg.shortName)
+                    }
+
+                    return@map gate
+                }
+
+                copy(
+                    gates = newGatesList,
                 )
             }
 
@@ -35,4 +58,5 @@ internal class Reducer : com.arkivanov.mvikotlin.core.store.Reducer<GatesStore.S
                 GatesStore.State()
             }
         }
+    }
 }

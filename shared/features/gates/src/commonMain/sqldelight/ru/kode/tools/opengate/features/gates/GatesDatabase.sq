@@ -2,15 +2,19 @@ CREATE TABLE barrier (
     id TEXT NOT NULL PRIMARY KEY,
     key Text NOT NULL,
     name Text NOT NULL,
-    state Integer NOT NULL
+    state Integer NOT NULL,
+    shortName TEXT
 );
 
 updateBarrierWithId:
-INSERT OR REPLACE INTO barrier(id, key, name, state)
-VALUES(?, ?, ?, ?);
+INSERT OR REPLACE INTO barrier(id, key, name, state, shortName)
+VALUES(?, ?, ?, ?, ?);
 
 removeBarriers:
 DELETE FROM barrier;
 
 getBarriers:
 SELECT * FROM barrier;
+
+getBarrier:
+SELECT * FROM barrier WHERE id = ?;

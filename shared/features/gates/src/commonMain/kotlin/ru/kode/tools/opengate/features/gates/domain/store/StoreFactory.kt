@@ -3,7 +3,6 @@ package ru.kode.tools.opengate.features.gates.domain.store
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import ru.kode.tools.opengate.features.gates.domain.Gate
-import ru.kode.tools.opengate.features.gates.domain.OpenGateState
 import ru.kode.tools.opengate.features.gates.domain.Repository
 
 internal class StoreFactory(
@@ -28,7 +27,8 @@ internal class StoreFactory(
         data object SetLoading : Message
         data class SetData(val gates: List<Gate>) : Message
         data class SetError(val error: String?) : Message
-        data class SetGateState(val state: OpenGateState) : Message
+        data class SetGateState(val gateId: String, val state: Gate.OpenState) : Message
+        data class SetShortName(val gateId: String, val shortName: String?) : Message
         data object Reset : Message
     }
 }

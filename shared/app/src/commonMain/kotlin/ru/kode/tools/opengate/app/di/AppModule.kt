@@ -6,6 +6,7 @@ import ru.kode.tools.opengate.app.presentation.ProfileViewModel
 import ru.kode.tools.opengate.app.presentation.RootNavigatorViewModel
 import ru.kode.tools.opengate.app.presentation.SignInViewModel
 import ru.kode.tools.opengate.app.domain.AuthService
+import ru.kode.tools.opengate.app.presentation.GateViewModel
 
 internal var appModule = module {
     single {
@@ -35,6 +36,12 @@ internal var appModule = module {
 
     single {
         HomeViewModel(
+            store = get()
+        )
+    }
+
+    single {
+        GateViewModel(
             store = get()
         )
     }

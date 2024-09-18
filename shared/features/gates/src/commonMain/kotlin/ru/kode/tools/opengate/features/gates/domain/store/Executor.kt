@@ -2,9 +2,9 @@ package ru.kode.tools.opengate.features.gates.domain.store
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import ru.kode.tools.opengate.features.gates.domain.Gate
 import ru.kode.tools.opengate.foundation.core.BaseExecutor
 import ru.kode.tools.opengate.foundation.core.Response
-import ru.kode.tools.opengate.features.gates.domain.OpenGateState
 import ru.kode.tools.opengate.features.gates.domain.Repository
 
 internal class Executor(
@@ -19,6 +19,7 @@ internal class Executor(
         is GatesStore.Intent.Init -> getGates()
         is GatesStore.Intent.GetGates -> getGates(intent.force)
         is GatesStore.Intent.Open -> openGate(intent.id, intent.key)
+        is GatesStore.Intent.ChangeShortname -> setShortName(intent.id, intent.shortName)
         is GatesStore.Intent.Logout -> reset()
     }
 
@@ -41,37 +42,38 @@ internal class Executor(
     }
 
     private suspend fun openGate(id: String, key: String) {
-        dispatch(StoreFactory.Message.SetGateState(OpenGateState(id, OpenGateState.State.OPENING)))
+        dispatch(StoreFactory.Message.SetGateState(id, Gate.OpenState.OPENING))
         when (val response = repository.openGate(id, key)) {
             is Response.Success -> {
-                val state = if (response.data) OpenGateState.State.OPENED else OpenGateState.State.ERROR
-                dispatch(StoreFactory.Message.SetGateState(OpenGateState(id, state)))
+                val state = if (response.data) Gate.OpenState.OPENED else Gate.OpenState.ERROR
+                dispatch(StoreFactory.Message.SetGateState(id, state))
                 dispatch(StoreFactory.Message.SetError(null))
 
                 delay(1500L)
 
                 dispatch(
                     StoreFactory.Message.SetGateState(
-                        OpenGateState(
-                            id,
-                            OpenGateState.State.PENDING
-                        )
+                        id,
+                        Gate.OpenState.PENDING
                     )
                 )
             }
             is Response.Failed -> {
                 dispatch(
                     StoreFactory.Message.SetGateState(
-                        OpenGateState(
-                            id,
-                            OpenGateState.State.ERROR
-                        )
+                        id,
+                        Gate.OpenState.ERROR
                     )
                 )
                 dispatch(StoreFactory.Message.SetError(response.throwable.message ?: "Error"))
             }
             else -> dispatch(StoreFactory.Message.SetError("Unknown error"))
         }
+    }
+
+    private suspend fun setShortName(id: String, shortName: String?) {
+        repository.setShortName(id, shortName)
+        dispatch(StoreFactory.Message.SetShortName(id, shortName))
     }
 
     private fun reset() {

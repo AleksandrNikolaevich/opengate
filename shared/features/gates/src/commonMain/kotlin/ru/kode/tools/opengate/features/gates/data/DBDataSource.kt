@@ -9,17 +9,17 @@ internal class DBDataSource(
     private val dbQuery = database.gatesDatabaseQueries
 
     internal fun getGates(): List<Gate> {
-        return dbQuery.getBarriers(::mapBarrierSelecting).executeAsList()
+        return dbQuery.getBarriers(::mapBarrierSelecting).executeAsList().sortedBy(::sortById)
     }
 
     internal fun addGates(gates: List<Gate>) {
         dbQuery.transaction {
-            gates.forEach(::addGate)
+            gates.forEach(::addOrUpdateGate)
         }
     }
 
-    internal fun addGate(gate: Gate) {
-        dbQuery.updateBarrierWithId(gate.id, gate.key, gate.name, if (gate.isAvailable) 1 else 0)
+    internal fun addOrUpdateGate(gate: Gate) {
+        dbQuery.updateBarrierWithId(gate.id, gate.key, gate.name, if (gate.isAvailable) 1 else 0, gate.shortName)
     }
 
     internal fun clearData() {
@@ -30,13 +30,16 @@ internal class DBDataSource(
         id: String,
         key: String,
         name: String,
-        state: Long
+        state: Long,
+        shortName: String?
     ): Gate {
         return Gate(
             id = id,
             key = key,
             name = name,
-            isAvailable = state == 1L
+            isAvailable = state == 1L,
+            state = Gate.OpenState.PENDING,
+            shortName = shortName
         )
     }
 }

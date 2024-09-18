@@ -12,29 +12,27 @@ internal class CloudDataSource(
     private val api: Api,
 )  {
     suspend fun signIn(login: String, password: String): Response<Boolean> {
-        val response = api.signIn(login, password)
+        try {
+            val response = api.signIn(login, password)
 
-        when (response.status) {
-            HttpStatusCode.OK -> {
-                return try {
-                    response.body<List<GatesListResponse.Success>>()
+            when (response.status) {
+                HttpStatusCode.OK -> {
+                    return try {
+                        response.body<List<GatesListResponse.Success>>()
 
-                    authenticate(Credentials(login = login, password = password))
+                        authenticate(Credentials(login = login, password = password))
 
-                    Response.Success(true)
-                } catch (e: JsonConvertException) {
-                    val data = response.body<GatesListResponse.Error>()
+                        Response.Success(true)
+                    } catch (e: JsonConvertException) {
+                        val data = response.body<GatesListResponse.Error>()
 
-                    Response.Failed(Error(data.error.msg))
-                } catch (e: RuntimeException) {
-                    Response.Failed(Error("Some problem. Try later..."))
+                        Response.Failed(Error(data.error.msg))
+                    }
                 }
             }
-        }
+        } catch (_: Throwable) {}
 
-        return Response.Failed(
-            IllegalStateException("Failed to auth")
-        )
+        return  Response.Failed(Error("Some problem. Try later..."))
     }
 
     fun authenticate(credentials: Credentials) = api.authenticate(credentials.login, credentials.password)
