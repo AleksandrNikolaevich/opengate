@@ -9,6 +9,7 @@ struct HomeScreen: View {
   @State var isRefreshing = false
   
   var onOpenProfile: () -> Void
+  var onOpenDetails: (_ gateId: String) -> Void
   
   var body: some View {
     let gatesCount: Int = state.gates?.count ?? 0
@@ -55,7 +56,7 @@ struct HomeScreen: View {
     
     ListItem(
       overlineContent: gate.isAvailable ? "ONLINE" : "OFFLINE",
-      headlineContent: gate.name,
+      headlineContent: gate.shortName ?? gate.name,
       trailingContent: {
         if (gateState == .opening) {
           ProgressView()
@@ -73,6 +74,19 @@ struct HomeScreen: View {
     ) {
       viewModel.openGate(gate: gate)
     }
+    .swipeActions {
+      Button(
+        action: {
+          onOpenDetails(gate.id)
+        },
+        label: {
+          Image(systemName: "gearshape")
+            .resizable()
+            .frame(width: 30, height: 30)
+            .padding(.top, 6)
+        }
+      )
+    }
   }
   
   private func refreshing() async {
@@ -87,6 +101,6 @@ struct HomeScreen: View {
 
 struct HomeScreen_Previews: PreviewProvider {
   static var previews: some View {
-    HomeScreen(onOpenProfile: {})
+    HomeScreen(onOpenProfile: {}, onOpenDetails: { _ in })
   }
 }

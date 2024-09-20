@@ -10,3 +10,4 @@ extension ObservableObject where Self: ViewModel {
       )
   }
 }
+

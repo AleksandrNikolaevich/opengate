@@ -10,6 +10,9 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		1F535B222B1A583F0026A568 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F535B212B1A583F0026A568 /* SignInScreen.swift */; };
+		1F6482A92C9C195300CD1753 /* SwipableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6482A82C9C195300CD1753 /* SwipableRow.swift */; };
+		1F6482AC2C9C1BC200CD1753 /* GateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6482AB2C9C1BC200CD1753 /* GateScreen.swift */; };
+		1F6482AE2C9C893E00CD1753 /* ChangeShortnameDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6482AD2C9C893E00CD1753 /* ChangeShortnameDialog.swift */; };
 		1F64EACC2B1F741B00DDD3A1 /* Binding+not.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F64EACB2B1F741B00DDD3A1 /* Binding+not.swift */; };
 		1F64EACF2B1FBA3A00DDD3A1 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F64EACE2B1FBA3A00DDD3A1 /* Transition.swift */; };
 		1F715CC22C1EEB0300852442 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F715CC12C1EEB0300852442 /* SplashScreen.swift */; };
@@ -34,6 +37,9 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		08A55E39F8E3822429A9ABCD /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		1F535B212B1A583F0026A568 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
+		1F6482A82C9C195300CD1753 /* SwipableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipableRow.swift; sourceTree = "<group>"; };
+		1F6482AB2C9C1BC200CD1753 /* GateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateScreen.swift; sourceTree = "<group>"; };
+		1F6482AD2C9C893E00CD1753 /* ChangeShortnameDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeShortnameDialog.swift; sourceTree = "<group>"; };
 		1F64EACB2B1F741B00DDD3A1 /* Binding+not.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+not.swift"; sourceTree = "<group>"; };
 		1F64EACE2B1FBA3A00DDD3A1 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		1F715CC12C1EEB0300852442 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -77,6 +83,7 @@
 		1F535B1F2B1A58110026A568 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1F6482AA2C9C1BB200CD1753 /* Gate */,
 				1F715CC52C1F49A800852442 /* Profile */,
 				1F8BEAE62B1F674100A0D4F5 /* Home */,
 				1F535B202B1A582C0026A568 /* SignIn */,
@@ -93,12 +100,22 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
+		1F6482AA2C9C1BB200CD1753 /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				1F6482AB2C9C1BC200CD1753 /* GateScreen.swift */,
+				1F6482AD2C9C893E00CD1753 /* ChangeShortnameDialog.swift */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
 		1F64EACD2B1FBA2900DDD3A1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				1F715CCB2C1F6B5C00852442 /* DataRow.swift */,
 				1F64EACE2B1FBA3A00DDD3A1 /* Transition.swift */,
 				1FF271F72C24DE8400E2957F /* ListItem.swift */,
+				1F6482A82C9C195300CD1753 /* SwipableRow.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -323,10 +340,12 @@
 			files = (
 				1F715CC42C1F44EC00852442 /* ProtectedNavigator.swift in Sources */,
 				1F715CC22C1EEB0300852442 /* SplashScreen.swift in Sources */,
+				1F6482A92C9C195300CD1753 /* SwipableRow.swift in Sources */,
 				1F64EACC2B1F741B00DDD3A1 /* Binding+not.swift in Sources */,
 				1F8B170A2B1C850F00D8D4A0 /* View+addBorder.swift in Sources */,
 				1FF271F82C24DE8400E2957F /* ListItem.swift in Sources */,
 				1F715CC72C1F49BA00852442 /* ProfileScreen.swift in Sources */,
+				1F6482AE2C9C893E00CD1753 /* ChangeShortnameDialog.swift in Sources */,
 				1F715CC92C1F4EC700852442 /* Binding+&&.swift in Sources */,
 				1F8BEAE82B1F675100A0D4F5 /* HomeScreen.swift in Sources */,
 				1F8BEAE52B1F670D00A0D4F5 /* RootNavigator.swift in Sources */,
@@ -336,6 +355,7 @@
 				1FF271F62C24DB9100E2957F /* View+if.swift in Sources */,
 				1F715CCC2C1F6B5C00852442 /* DataRow.swift in Sources */,
 				1F535B222B1A583F0026A568 /* SignInScreen.swift in Sources */,
+				1F6482AC2C9C1BC200CD1753 /* GateScreen.swift in Sources */,
 				1FF271F42C24CD0F00E2957F /* View+navigationTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,8 +16,6 @@ struct ProfileScreen: View {
         icon: "rectangle.portrait.and.arrow.right",
         onPress: {
           logoutAlertShowing = true
-          //          onClose()
-          //          viewModel.logout()
         }
       )
     }

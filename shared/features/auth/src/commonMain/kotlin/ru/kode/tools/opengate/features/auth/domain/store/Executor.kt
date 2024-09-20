@@ -1,6 +1,9 @@
 package ru.kode.tools.opengate.features.auth.domain.store
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import ru.kode.tools.opengate.foundation.core.BaseExecutor
 import ru.kode.tools.opengate.foundation.core.Response
 import ru.kode.tools.opengate.features.auth.domain.Repository
@@ -22,7 +25,11 @@ internal class Executor(
     private suspend fun signIn(login: String, password: String) {
         dispatch(StoreFactory.Message.SetLoading)
 
-        when (val response = repository.signIn(login, password)) {
+        val response = scope.async(Dispatchers.IO) {
+            repository.signIn(login, password)
+        }.await()
+
+        when (response) {
 //            is Response.Cached -> dispatch(StoreFactory.Message.SetData(response.data, true))
             is Response.Success -> dispatch(StoreFactory.Message.SetLoggedIn(true))
             is Response.Failed -> dispatch(
@@ -34,14 +41,19 @@ internal class Executor(
         }
     }
 
-    private fun checkLogin() {
-        val isLoggedIn = repository.checkLogin()
+    private suspend fun checkLogin() {
+        val isLoggedIn = scope.async(Dispatchers.IO) {
+            repository.checkLogin()
+        }.await()
 
         dispatch(StoreFactory.Message.SetLoggedIn(isLoggedIn))
     }
 
     private fun logout() {
-        repository.logout()
+        scope.launch(Dispatchers.IO) {
+            repository.logout()
+        }
+
         dispatch(StoreFactory.Message.SetLoggedIn(false))
     }
 }

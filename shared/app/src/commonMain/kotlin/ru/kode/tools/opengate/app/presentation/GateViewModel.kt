@@ -22,7 +22,7 @@ class GateViewModel(
 
     private var gateId: String = ""
 
-    val shortNameFieldValue = MutableStateFlow<String?>(null).cMutableStateFlow()
+    var shortNameFieldValue = MutableStateFlow("").cMutableStateFlow()
 
     val state: CStateFlow<State>
         get() = mutableState
@@ -46,11 +46,10 @@ class GateViewModel(
     }
 
     fun commitShortName() = run {
-        shortNameFieldValue.value = shortNameFieldValue.value?.ifEmpty { null }
         store.accept(
             GatesStore.Intent.ChangeShortname(
                 gateId,
-                shortNameFieldValue.value
+                shortNameFieldValue.value.ifEmpty { null }
             )
         )
     }
@@ -75,9 +74,15 @@ class GateViewModel(
 
     private fun setDefaultShortName() {
         val gate = findGate(mutableState.value.gates)
-        if (shortNameFieldValue.value.isNullOrEmpty()) {
-            shortNameFieldValue.value = gate?.shortName ?: gate?.name
+        shortNameFieldValue.value = getShortName(gate)
+    }
+
+    private fun getShortName(gate: Gate?) : String {
+        if (gate?.shortName?.isEmpty() == false) {
+            return gate.shortName!!
         }
+
+        return gate?.name ?:  ""
     }
 
     private fun findGate(gates: List<Gate>?) : Gate? {
